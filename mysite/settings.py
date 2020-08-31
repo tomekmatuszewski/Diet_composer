@@ -25,12 +25,13 @@ SECRET_KEY = 'z1crcejnze9tjlg)8l(s)zfss+)4q=7(0b$r^ead(tirj$*i5l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'diet_composer.apps.DietComposerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
