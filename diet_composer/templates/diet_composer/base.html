@@ -12,7 +12,6 @@
          <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{% static 'diet_composer/main.css' %}">
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=PT+Sans&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/0a451c7507.js" crossorigin="anonymous"></script>
 
         {% if title %}
@@ -75,6 +74,10 @@
 
         </div>
 
+        <!-- Back to top button -->
+        <button onclick="topFunction()" id="button"></button>
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -82,29 +85,8 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
+    <script type="text/javascript" src="{% static 'diet_composer/top_nav.js' %}"></script>
+    <script type="text/javascript" src="{% static 'diet_composer/scroll_top.js' %}"></script>
 
-    <script>
-
-	$(document).ready(function() {
-	var NavY = $('.navbar').offset().top;
-
-	var stickyNav = function(){
-	var ScrollY = $(window).scrollTop();
-
-	if (ScrollY > NavY) {
-		$('.navbar').addClass('sticky');
-	} else {
-		$('.navbar').removeClass('sticky');
-	}
-	};
-
-	stickyNav();
-
-	$(window).scroll(function() {
-		stickyNav();
-	});
-	});
-
-    </script>
     </body>
 </html>
