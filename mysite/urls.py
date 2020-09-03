@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('diet_composer.urls')),
+    path('', include('diet_blog.urls')),
 ]
