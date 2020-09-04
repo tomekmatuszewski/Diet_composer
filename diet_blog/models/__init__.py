@@ -1,1 +1,1 @@
-from .blog_post import *
+from .blog_post import Post
