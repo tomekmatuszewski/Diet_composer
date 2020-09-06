@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class DietComposerConfig(AppConfig):
-    name = "diet_composer"
+    name = "apps.diet_composer"

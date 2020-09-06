@@ -15,10 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from mysite import views
+
+admin.autodiscover()
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("diet_composer.urls")),
-    path("", include("diet_blog.urls")),
-    path("", include("users.urls"))
+    path("", views.HomeView.as_view(), name="diet_composer-home"),
+    path("about/", views.AboutView.as_view(), name="diet_composer-about"),
+    path("", include("apps.diet_composer.urls")),
+    path("", include("apps.diet_blog.urls")),
+    path("", include("apps.users.urls")),
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from diet_blog.models import *
+from apps.diet_blog.models import Post
 
 
 def blog(request):
