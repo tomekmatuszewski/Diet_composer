@@ -123,12 +123,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
-
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = "media"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 LOGIN_REDIRECT_URL = "diet_composer-home"

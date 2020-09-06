@@ -16,14 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from mysite import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 admin.autodiscover()
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.HomeView.as_view(), name="diet_composer-home"),
-    path("about/", views.AboutView.as_view(), name="diet_composer-about"),
+    path("", views.home, name="diet_composer-home"),
+    path("about/", views.about, name="diet_composer-about"),
     path("", include("apps.diet_composer.urls")),
     path("", include("apps.diet_blog.urls")),
     path("", include("apps.users.urls")),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
