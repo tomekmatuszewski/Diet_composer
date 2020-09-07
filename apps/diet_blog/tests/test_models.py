@@ -6,7 +6,6 @@ from apps.diet_blog.models import Post
 
 @pytest.mark.django_db()
 class TestModels:
-
     @pytest.fixture(scope="class", name="post")
     def create_models(self):
         user = User(username="tm")

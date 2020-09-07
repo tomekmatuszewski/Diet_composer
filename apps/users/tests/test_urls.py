@@ -1,8 +1,7 @@
-from django.urls import reverse, resolve
+from django.urls import resolve, reverse
 
 
 class TestUrls:
-
     def test_register_url(self):
         path = reverse("register")
         assert resolve(path).view_name == "register"
