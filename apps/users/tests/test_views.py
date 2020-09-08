@@ -1,14 +1,30 @@
+import os
+
 import pytest
 from django.contrib.auth.models import AnonymousUser, User
 from django.test import RequestFactory
 from django.urls import reverse
 from mixer.backend.django import mixer
+from django.core.files.uploadedfile import SimpleUploadedFile
 
-from apps.users.views import profile, register
+from apps.users.views import profile
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent.parent
 
 
 @pytest.mark.django_db
 class TestView:
+
+    @pytest.fixture(name="user", scope="class")
+    def create_post(self, django_db_blocker, django_db_setup):
+        with django_db_blocker.unblock():
+            user = User.objects.create_user(username="test_user", email="test@demo.pl", password="test12345")
+        yield user
+        with django_db_blocker.unblock():
+            os.remove(user.profile.image.path)
+            user.delete()
+
     def test_profile_view_authenticated(self):
         path = reverse("profile")
         request = RequestFactory().get(path)
@@ -67,3 +83,25 @@ class TestView:
             "This password is too short. It must contain at least 8 characters."
             in str(response.content)
         )
+
+    def test_post_update(self, client, user):
+        image_path = os.path.join(BASE_DIR, "media/test_pics/joker.jpg")
+        client.login(username="test_user", password="test12345")
+        response = client.post(
+            reverse("profile"),
+            {
+                "username": "test_user1",
+                "email": "test1@gmail.com",
+                "image": SimpleUploadedFile(name="joker.jpg", content=open(image_path,'rb').read(),
+                                            content_type='image/jpg')
+            },
+        )
+        user.refresh_from_db()
+        assert response.status_code == 302
+        assert user.username == "test_user1"
+        assert user.email == "test1@gmail.com"
+        assert user.profile.image.path == os.path.join(BASE_DIR, "media/profile_pics/joker.jpg")
+
+
+
+
