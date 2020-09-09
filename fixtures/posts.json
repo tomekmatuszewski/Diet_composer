@@ -1,0 +1,38 @@
+[
+  {
+    "model": "diet_blog.post",
+    "pk": 3,
+    "fields": {
+      "title": "First Post",
+      "content": "Ut dolor eros, feugiat et volutpat eu, aliquam sed est. Morbi viverra sagittis varius. Pellentesque ut sollicitudin arcu. Quisque commodo velit sed nulla bibendum, eget fringilla mi commodo. Nullam ornare arcu eu mauris posuere, quis viverra mauris tempor. Vivamus rhoncus ante vitae quam pulvinar rhoncus. Sed et justo quis sapien tincidunt vehicula. Sed tristique nunc at accumsan pharetra. Suspendisse molestie nulla quis condimentum commodo. Nulla ex massa, tincidunt in fermentum at, congue quis elit.\n\n",
+      "author": 1
+    }
+  },
+  {
+    "model": "diet_blog.post",
+    "pk": 4,
+    "fields": {
+      "title": "Second Post",
+      "content": "Pellentesque imperdiet nunc tincidunt purus rhoncus, vestibulum consectetur libero pretium. Aliquam eleifend pretium ante, vulputate auctor mi consectetur nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sollicitudin commodo vulputate. Praesent laoreet, elit in viverra pharetra, dolor ligula suscipit diam, ut semper tellus sapien vehicula eros. Proin sagittis nibh sit amet mollis commodo. In hac habitasse platea dictumst.",
+      "author": 1
+    }
+  },
+  {
+    "model": "diet_blog.post",
+    "pk": 5,
+    "fields": {
+      "title": "Test user Post",
+      "content": "Pellentesque imperdiet nunc tincidunt purus rhoncus, vestibulum consectetur libero pretium. Aliquam eleifend pretium ante, vulputate auctor mi consectetur nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sollicitudin commodo vulputate. Praesent laoreet, elit in viverra pharetra, dolor ligula suscipit diam, ut semper tellus sapien vehicula eros. Proin sagittis nibh sit amet mollis commodo. In hac habitasse platea dictumst.",
+      "author": 7
+    }
+  },
+  {
+    "model": "diet_blog.post",
+    "pk": 6,
+    "fields": {
+      "title": "Test user Post 2",
+      "content": "Pellentesque imperdiet nunc tincidunt purus rhoncus, vestibulum consectetur libero pretium. Aliquam eleifend pretium ante, vulputate auctor mi consectetur nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sollicitudin commodo vulputate. Praesent laoreet, elit in viverra pharetra, dolor ligula suscipit diam, ut semper tellus sapien vehicula eros. Proin sagittis nibh sit amet mollis commodo. In hac habitasse platea dictumst.",
+      "author": 7
+    }
+  }
+]

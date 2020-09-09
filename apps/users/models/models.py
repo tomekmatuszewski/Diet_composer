@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+
 from apps.users.utils import change_pic_size
 
 
@@ -14,6 +15,3 @@ class Profile(models.Model):
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
         change_pic_size(self.image.path)
-
-
-

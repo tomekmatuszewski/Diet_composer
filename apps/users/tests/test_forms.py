@@ -1,11 +1,11 @@
 import pytest
 
-from apps.users.forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from apps.users.forms import (ProfileUpdateForm, UserRegisterForm,
+                              UserUpdateForm)
 
 
 @pytest.mark.django_db
 class TestForms:
-
     def test_user_valid_data(self):
         form = UserRegisterForm(
             data={
@@ -52,4 +52,3 @@ class TestForms:
             }
         )
         assert form.is_valid()
-

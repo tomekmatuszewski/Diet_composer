@@ -42,9 +42,24 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#"> Composer </a>
                         </li>
+                        {% if user.is_authenticated %}
+                        <li class="btn-group">
+
+                            <a type="button" class="btn btn-secondary" href="{% url 'diet_composer-blog' %}">Blog</a>
+                            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'post-create' %}">New Post</a>
+                            </div>
+
+                        </li>
+                        {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'diet_composer-blog' %}"> Blog </a>
                         </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="#"> Recipes </a>
                         </li>

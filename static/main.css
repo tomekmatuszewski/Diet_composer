@@ -41,6 +41,15 @@ header .sticky
 	z-index: 100;
 }
 
+header nav #mainmenu .btn
+{
+    background-color: #4D4545 !important;
+    border: none;
+    margin-top: 2px;
+}
+
+
+
 /* footer style */
 
 footer {
@@ -106,5 +115,4 @@ footer a .fa-circle
   opacity: 1;
   visibility: visible;
 }
-
 

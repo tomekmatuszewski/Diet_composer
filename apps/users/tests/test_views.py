@@ -1,25 +1,26 @@
 import os
+from pathlib import Path
 
 import pytest
 from django.contrib.auth.models import AnonymousUser, User
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import RequestFactory
 from django.urls import reverse
 from mixer.backend.django import mixer
-from django.core.files.uploadedfile import SimpleUploadedFile
 
 from apps.users.views import profile
-from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent.parent
 
 
 @pytest.mark.django_db
 class TestView:
-
     @pytest.fixture(name="user", scope="class")
     def create_post(self, django_db_blocker, django_db_setup):
         with django_db_blocker.unblock():
-            user = User.objects.create_user(username="test_user", email="test@demo.pl", password="test12345")
+            user = User.objects.create_user(
+                username="test_user", email="test@demo.pl", password="test12345"
+            )
         yield user
         with django_db_blocker.unblock():
             os.remove(user.profile.image.path)
@@ -92,16 +93,17 @@ class TestView:
             {
                 "username": "test_user1",
                 "email": "test1@gmail.com",
-                "image": SimpleUploadedFile(name="joker.jpg", content=open(image_path,'rb').read(),
-                                            content_type='image/jpg')
+                "image": SimpleUploadedFile(
+                    name="joker.jpg",
+                    content=open(image_path, "rb").read(),
+                    content_type="image/jpg",
+                ),
             },
         )
         user.refresh_from_db()
         assert response.status_code == 302
         assert user.username == "test_user1"
         assert user.email == "test1@gmail.com"
-        assert user.profile.image.path == os.path.join(BASE_DIR, "media/profile_pics/joker.jpg")
-
-
-
-
+        assert user.profile.image.path == os.path.join(
+            BASE_DIR, "media/profile_pics/joker.jpg"
+        )

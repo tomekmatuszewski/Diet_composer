@@ -1,10 +1,16 @@
 from django.urls import resolve, reverse
+from apps.users.views import register, profile
 
 
 class TestUrls:
+
+    def test_profile_url(self):
+        url = reverse("profile")
+        assert resolve(url).func == profile
+
     def test_register_url(self):
-        path = reverse("register")
-        assert resolve(path).view_name == "register"
+        url = reverse("register")
+        assert resolve(url).func == register
 
     def test_login_url(self):
         path = reverse("login")
@@ -13,7 +19,3 @@ class TestUrls:
     def test_logout_url(self):
         path = reverse("logout")
         assert resolve(path).view_name == "logout"
-
-    def test_profile_url(self):
-        path = reverse("profile")
-        assert resolve(path).view_name == "profile"

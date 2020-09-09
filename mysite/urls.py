@@ -18,14 +18,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-from mysite import views
+from mysite.views import AboutView, HomeView
 
 admin.autodiscover()
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.home, name="diet_composer-home"),
-    path("about/", views.about, name="diet_composer-about"),
+    path("", HomeView.as_view(), name="diet_composer-home"),
+    path("about/", AboutView.as_view(), name="diet_composer-about"),
     path("", include("apps.diet_composer.urls")),
     path("", include("apps.diet_blog.urls")),
     path("", include("apps.users.urls")),
