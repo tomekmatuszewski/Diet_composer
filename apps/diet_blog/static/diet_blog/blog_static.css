@@ -62,3 +62,26 @@
   height: 25px;
   vertical-align: middle;
 }
+
+h5
+{
+   color: #4D4545;
+   margin-top: 15px;
+   text-align: center;
+}
+
+.buttons-paginate .btn
+{
+    color: #4D4545 !important;
+    border-color: #4D4545 !important;
+}
+
+.buttons-paginate .btn:hover
+{
+    background-color: #A59E9D !important;
+}
+
+.buttons-paginate .btn:visited
+{
+    background-color: #A59E9D !important;
+}

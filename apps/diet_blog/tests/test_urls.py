@@ -1,18 +1,14 @@
 import pytest
 from django.contrib.auth.models import User
 from django.urls import resolve, reverse
-from apps.diet_blog.views import (
-    PostListView,
-    PostDeleteView,
-    PostUpdateView,
-    PostCreateView,
-    PostDetailView,
-    UserPostListView)
+
+from apps.diet_blog.views import (PostCreateView, PostDeleteView,
+                                  PostDetailView, PostListView, PostUpdateView,
+                                  UserPostListView)
 
 
 @pytest.mark.django_db()
 class TestUrls:
-
     @pytest.fixture(scope="class", name="user")
     def create_user_obj(self, django_db_blocker):
         with django_db_blocker.unblock():
@@ -26,7 +22,7 @@ class TestUrls:
         assert resolve(url).func.view_class == PostListView
 
     def test_post_url(self, user):
-        url = reverse("post-detail", kwargs={'pk': user.id})
+        url = reverse("post-detail", kwargs={"pk": user.id})
         assert resolve(url).func.view_class == PostDetailView
 
     def test_create_post_url(self):
@@ -34,13 +30,13 @@ class TestUrls:
         assert resolve(url).func.view_class == PostCreateView
 
     def test_update_post_url(self, user):
-        url = reverse("post-update", kwargs={'pk': user.id})
+        url = reverse("post-update", kwargs={"pk": user.id})
         assert resolve(url).func.view_class == PostUpdateView
 
     def test_delete_post_url(self, user):
-        url = reverse("post-delete", kwargs={'pk': user.id})
+        url = reverse("post-delete", kwargs={"pk": user.id})
         assert resolve(url).func.view_class == PostDeleteView
 
     def test_user_posts_url(self, user):
-        url = reverse("user-posts", kwargs={'username': user.username})
+        url = reverse("user-posts", kwargs={"username": user.username})
         assert resolve(url).func.view_class == UserPostListView

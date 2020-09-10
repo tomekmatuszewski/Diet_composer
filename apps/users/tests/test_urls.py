@@ -1,9 +1,9 @@
 from django.urls import resolve, reverse
-from apps.users.views import register, profile
+
+from apps.users.views import profile, register
 
 
 class TestUrls:
-
     def test_profile_url(self):
         url = reverse("profile")
         assert resolve(url).func == profile
