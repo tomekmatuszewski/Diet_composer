@@ -10,6 +10,10 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name="blog_post")
+
+    def total_likes(self):
+        return self.likes.count()
 
     def __repr__(self):
         return f"Post title: {self.title}"

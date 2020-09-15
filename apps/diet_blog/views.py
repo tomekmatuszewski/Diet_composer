@@ -5,6 +5,8 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
 from apps.diet_blog.models import Post, Comment
+from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 
 
 class PostListView(ListView):
@@ -28,7 +30,15 @@ class UserPostListView(ListView):
 
 
 class PostDetailView(DetailView):
+
     model = Post
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PostDetailView, self).get_context_data()
+        stuff = get_object_or_404(Post, id=self.kwargs.get("pk"))
+        total_likes = stuff.total_likes()
+        context["total_likes"] = total_likes
+        return context
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -68,10 +78,19 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
-    success_url = "/blog"
     fields = ["content"]
+
+    def get_success_url(self):
+        return reverse_lazy('post-detail', kwargs={'pk': self.kwargs['pk']})
 
     def form_valid(self, form):
         form.instance.post_id = self.kwargs['pk']
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+def LikeView(request, pk):
+
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse("post-detail", args=[str(pk)]))
