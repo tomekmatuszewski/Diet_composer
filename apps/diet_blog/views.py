@@ -4,11 +4,10 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
-from apps.diet_blog.models import Post
+from apps.diet_blog.models import Post, Comment
 
 
 class PostListView(ListView):
-
     model = Post
     template_name = "diet_blog/blog.html"
     context_object_name = "posts"
@@ -18,7 +17,6 @@ class PostListView(ListView):
 
 
 class UserPostListView(ListView):
-
     model = Post
     template_name = "diet_blog/user_posts.html"
     context_object_name = "posts"
@@ -30,12 +28,10 @@ class UserPostListView(ListView):
 
 
 class PostDetailView(DetailView):
-
     model = Post
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
-
     model = Post
     fields = ["title", "content"]
 
@@ -45,7 +41,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-
     model = Post
     fields = ["title", "content"]
 
@@ -61,7 +56,6 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-
     model = Post
     success_url = "/blog"
 
@@ -70,3 +64,14 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    success_url = "/blog"
+    fields = ["content"]
+
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        form.instance.author = self.request.user
+        return super().form_valid(form)

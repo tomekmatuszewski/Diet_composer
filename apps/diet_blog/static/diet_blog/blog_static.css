@@ -63,7 +63,7 @@
   vertical-align: middle;
 }
 
-h5
+.content-section h5
 {
    color: #4D4545;
    margin-top: 15px;
@@ -74,6 +74,7 @@ h5
 {
     color: #4D4545 !important;
     border-color: #4D4545 !important;
+    margin-top: 40px;
 }
 
 .buttons-paginate .btn:hover
@@ -84,4 +85,28 @@ h5
 .buttons-paginate .btn:visited
 {
     background-color: #A59E9D !important;
+}
+
+/* comments */
+
+.comments-section
+{
+    display: inline-block;
+}
+
+.comments-section h5
+{
+   margin-top: 0px;
+}
+
+.comments-section .btn
+{
+
+   color: #4D4545 !important;
+   border-color: #4D4545 !important;
+}
+
+.comments-section .btn:hover
+{
+   background-color: #A59E9D !important;
 }
