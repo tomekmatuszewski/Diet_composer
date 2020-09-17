@@ -6,7 +6,7 @@ from apps.diet_blog.models import Post
 
 
 @pytest.mark.django_db
-class TestView:
+class TestPostView:
     @pytest.fixture(name="post", scope="class")
     def create_post(self, django_db_blocker, django_db_setup):
         with django_db_blocker.unblock():
@@ -89,3 +89,69 @@ class TestView:
         assert "Posts by test_user (1)" in str(response.content)
         assert response.context[0]["posts"].count() == 1
         assert response.context[0]["page_obj"].number == 1
+
+
+@pytest.mark.django_db
+class TestCommentView:
+
+    @pytest.fixture(name="post", scope="class")
+    def create_post(self, django_db_blocker, django_db_setup):
+        with django_db_blocker.unblock():
+            user = User.objects.create_user(
+                username="test_user", email="test@demo.pl", password="test12345"
+            )
+            post = Post.objects.create(
+                title="Test post", content="Test content", author=user
+            )
+
+        yield post
+        with django_db_blocker.unblock():
+            post.delete()
+            user.delete()
+
+    def test_comment_view(self, client, post):
+        client.login(username="test_user", password="test12345")
+        response = client.post(reverse("comment-create", kwargs={"pk": post.pk}),
+                               {
+                                   "content": "test comment content",
+                                   "post": post
+                               })
+        assert response.status_code == 302
+        assert post.comments.count() == 1
+        assert post.comments.all()[0].content == "test comment content"
+        assert post.comments.all()[0].author.username == "test_user"
+
+
+@pytest.mark.django_db
+class TestLikeView:
+
+    @pytest.fixture(name="post", scope="class")
+    def create_post(self, django_db_blocker, django_db_setup):
+        with django_db_blocker.unblock():
+            user = User.objects.create_user(
+                username="test_user", email="test@demo.pl", password="test12345"
+            )
+            user.save()
+            post = Post.objects.create(
+                title="Test post", content="Test content", author=user
+            )
+            post.save()
+        yield post
+        with django_db_blocker.unblock():
+            post.delete()
+            user.delete()
+
+    def test_like_view(self, post, client):
+        client.login(username="test_user", password="test12345")
+        response = client.post(reverse("like-post", kwargs={"pk": post.pk}), {"post_id": post.pk})
+        assert response.status_code == 302
+        assert post.likes.count() == 1
+
+
+
+
+
+
+
+
+

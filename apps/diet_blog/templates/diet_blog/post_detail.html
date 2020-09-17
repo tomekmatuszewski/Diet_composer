@@ -16,9 +16,11 @@
             </div>
             {% endif %}
             {% if user.is_authenticated %}
-                <form action="{% url 'like_post' post.id %}" method="post">
+                <form action="{% url 'like-post' post.id %}" method="post">
                     {% csrf_token %}
-                    <button class="btn btn-outline-info btn-sm" type="submit" name="post_id" value="{{ post.id }}">Like</button> Likes: {{ total_likes }}
+                    <button class="btn btn-outline-info btn-sm" type="submit" name="post_id" value="{{ post.id }}">
+                        <i class="far fa-thumbs-up"></i>
+                    </button> <span class="ml-2">Total: {{ total_likes }}</span>
                 </form>
             {% endif %}
         </div>

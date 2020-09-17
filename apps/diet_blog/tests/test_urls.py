@@ -4,7 +4,7 @@ from django.urls import resolve, reverse
 
 from apps.diet_blog.views import (PostCreateView, PostDeleteView,
                                   PostDetailView, PostListView, PostUpdateView,
-                                  UserPostListView)
+                                  UserPostListView, CommentCreateView, LikeView)
 
 
 @pytest.mark.django_db()
@@ -40,3 +40,11 @@ class TestUrls:
     def test_user_posts_url(self, user):
         url = reverse("user-posts", kwargs={"username": user.username})
         assert resolve(url).func.view_class == UserPostListView
+
+    def test_user_comment_url(self, user):
+        url = reverse("comment-create", kwargs={"pk": user.pk})
+        assert resolve(url).func.view_class == CommentCreateView
+
+    def test_like_url(self, user):
+        url = reverse("like-post", kwargs={"pk": user.pk})
+        assert resolve(url).func == LikeView
