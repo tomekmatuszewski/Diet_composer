@@ -29,6 +29,7 @@ urlpatterns = [
     path("", include("apps.diet_composer.urls")),
     path("", include("apps.diet_blog.urls")),
     path("", include("apps.users.urls")),
+    path("", include("apps.recipes.urls")),
 ]
 
 

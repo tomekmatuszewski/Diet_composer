@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+    {% for recipe in recipes %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <span class="article-author mr-2"><a  href="#">{{ recipes.author }}</a></span>
+                    <span class="article-date"><small> {{ recipe.date_public|date:"F d, Y" }}</small></span>
+                </div>
+                <h5>{{ recipe.title }}</h5>
+                <div class="recipe-img">
+                    <img src="{{ recipe.image.url }}"/>
+                </div>
+                <div class="recipe-description">
+                    <p class="article-content">{{ recipe.content }}</p>
+                </div>
+                <a href="#">Read more</a>
+<!--                <i class="far fa-comment ml-3"></i> <span>{{ recipe.comments.count }}</span>-->
+<!--                <i class="far fa-thumbs-up ml-3"></i>  <span>{{ post.likes.count }}</span>-->
+            </div>
+        </article>
+    {% endfor %}
+
+
+{% endblock content %}

@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "apps.diet_composer.apps.DietComposerConfig",
     "apps.diet_blog.apps.DietBlogConfig",
     "apps.users.apps.UsersConfig",
+    "apps.recipes.apps.RecipesConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

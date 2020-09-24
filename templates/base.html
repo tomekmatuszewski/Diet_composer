@@ -13,6 +13,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'diet_blog/blog_static.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'users/users.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'recipes/recipes_static.css' %}">
         <script src="https://kit.fontawesome.com/0a451c7507.js" crossorigin="anonymous"></script>
 
         {% if title %}
@@ -61,7 +62,7 @@
                         </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#"> Recipes </a>
+                            <a class="nav-link" href="{% url 'diet_composer-recipes' %}"> Recipes </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'diet_composer-about' %}"> About </a>

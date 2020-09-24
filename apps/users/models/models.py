@@ -5,7 +5,6 @@ from apps.users.utils import change_pic_size
 
 
 class Profile(models.Model):
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default="default.jpg", upload_to="profile_pics")
 
@@ -14,4 +13,4 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
-        change_pic_size(self.image.path)
+        change_pic_size(self.image.path, 300, 300)
