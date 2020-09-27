@@ -11,7 +11,7 @@
                 <h5>{{ recipe.title }}</h5>
                 <img src="{{ recipe.image.url }}"/>
                 <p>
-                    {{ recipe.content }}
+                    {{ recipe.description }}
                 </p>
                 <a href="{% url 'recipe-detail' recipe.id %}">Read more</a>
 <!--                <i class="far fa-comment ml-3"></i> <span>{{ recipe.comments.count }}</span>-->

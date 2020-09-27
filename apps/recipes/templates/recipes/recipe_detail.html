@@ -8,7 +8,7 @@
             </div>
             <h5 class="article-title">{{ object.title }}</h5>
             <img src="{{ object.image.url }}"/>
-            <p>{{ object.content }}</p>
+            <p>{{ object.description }}</p>
             {% if object.author == user %}
             <div class="buttons">
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="#">Update</a>
