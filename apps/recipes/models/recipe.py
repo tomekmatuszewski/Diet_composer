@@ -10,6 +10,7 @@ class Recipe(models.Model):
     content = models.TextField()
     date_public = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    # ingredients = models.JSONField()
 
     # likes = models.ManyToManyField(User, related_name="blog_post")
 

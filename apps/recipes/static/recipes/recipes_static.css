@@ -1,6 +1,17 @@
-.content-section .recipe-img
+.content-section .media-body img
 {
-  width: 100%;
-  float: left;
+    float: left;
+    margin-right: 20px;
+    margin-top: 5px;
+
 }
+
+.content-section p
+{
+    display: flex;
+    text-align: justify;
+}
+
+
+
 

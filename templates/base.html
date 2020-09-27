@@ -55,15 +55,25 @@
                                     <a class="dropdown-item" href="{% url 'post-create' %}">New Post</a>
                                 </div>
                             </div>
+                            <div class="btn-group">
+                                <a class="nav-link" type="button" href="{% url 'diet_composer-recipes' %}">Recipes</a>
+                                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">New Recipe</a>
+                                </div>
+                            </div>
                         </li>
                         {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'diet_composer-blog' %}"> Blog </a>
                         </li>
-                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'diet_composer-recipes' %}"> Recipes </a>
                         </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'diet_composer-about' %}"> About </a>
                         </li>

@@ -1,4 +1,4 @@
-from django.views.generic import (ListView,)
+from django.views.generic import (ListView, DetailView)
 
 from apps.recipes.models import Recipe
 
@@ -10,3 +10,7 @@ class RecipesListView(ListView):
     ordering = ["-date_public"]
     extra_context = {"title": "Recipes"}
     paginate_by = 4
+
+
+class RecipeDetailView(DetailView):
+    model = Recipe
