@@ -7,13 +7,24 @@
                 <span class="article-date"><small> {{ object.date_public|date:"F d, Y" }}</small></span>
             </div>
             <h5 class="article-title">{{ object.title }}</h5>
+            <p>Preparing time: {{ object.preparing_time }}</p>
             <img src="{{ object.image.url }}"/>
-            <p>{{ object.description }}</p>
+            <p class="article-content">{{ object.description }}</p>
+            <h4>Ingredients: </h4>
+            <p class="article-content">{{ object.ingredients }}</p>
             {% if object.author == user %}
             <div class="buttons">
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="#">Update</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1 mr-3" href="#">Delete</a>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'recipe-update' object.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1 mr-3" href="{% url 'recipe-delete' object.id %}">Delete</a>
             </div>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <form action="{% url 'recipe-like' recipe.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-info btn-sm" type="submit" name="recipe_id" value="{{ recipe.id }}">
+                        <i class="far fa-thumbs-up"></i>
+                    </button> <span class="ml-2">Total: {{ object.total_likes }}</span>
+                </form>
             {% endif %}
         </div>
     </article>

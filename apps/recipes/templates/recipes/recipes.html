@@ -10,12 +10,14 @@
                 </div>
                 <h5>{{ recipe.title }}</h5>
                 <img src="{{ recipe.image.url }}"/>
-                <p>
-                    {{ recipe.description }}
+                <p class="article">
+                    {{ recipe.description|truncatewords:80 }}
                 </p>
-                <a href="{% url 'recipe-detail' recipe.id %}">Read more</a>
-<!--                <i class="far fa-comment ml-3"></i> <span>{{ recipe.comments.count }}</span>-->
-<!--                <i class="far fa-thumbs-up ml-3"></i>  <span>{{ post.likes.count }}</span>-->
+                <div class="read_more">
+                    <a href="{% url 'recipe-detail' recipe.id %}">Read more</a>
+    <!--                <i class="far fa-comment ml-3"></i> <span>{{ recipe.comments.count }}</span>-->
+    <!--                <i class="far fa-thumbs-up ml-3"></i>  <span>{{ post.likes.count }}</span>-->
+                </div>
             </div>
         </article>
     {% endfor %}
