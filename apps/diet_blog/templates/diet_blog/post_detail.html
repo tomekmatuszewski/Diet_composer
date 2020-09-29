@@ -42,6 +42,10 @@
                                 <span class="article-date ml-5"><small> {{ comment.date_comment|date:"F d, Y" }}</small></span>
                             </div>
                             <p class="article-content">{{ comment.content }}</p>
+                            {% if comment.author == user %}
+                                <a class="btn-sm btn-outline-info" href="{% url 'comment-update' comment.id %}">Edit</a>
+                                <a class="btn-sm btn-outline-info ml-1" href="{% url 'comment-delete' comment.id %}">Delete</a>
+                            {% endif %}
                         </div>
                     </article>
                 {% endfor %}

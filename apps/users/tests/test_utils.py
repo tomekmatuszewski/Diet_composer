@@ -19,6 +19,6 @@ def get_image():
 
 
 def test_change_pic_size(image_path):
-    change_pic_size(image_path)
+    change_pic_size(image_path, 300, 300)
     assert Image.open(image_path).height == 300
     assert Image.open(image_path).width == 300

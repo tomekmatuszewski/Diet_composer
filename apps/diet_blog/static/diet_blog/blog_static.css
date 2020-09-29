@@ -92,6 +92,7 @@
     background-color: #A59E9D !important;
 }
 
+
 /* comments */
 
 .comments-section
@@ -112,6 +113,20 @@
 }
 
 .comments-section .btn:hover
+{
+   background-color: #A59E9D !important;
+}
+
+
+.comments-section .btn-sm
+{
+   color: #4D4545 !important;
+   border-color: #4D4545 !important;
+   text-decoration:  none;
+   margin-left: -5px;
+}
+
+.comments-section .btn-sm:hover
 {
    background-color: #A59E9D !important;
 }

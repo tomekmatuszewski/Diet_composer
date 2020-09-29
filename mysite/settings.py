@@ -70,6 +70,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "apps.diet_blog.context_processors.all_posts",
+                "apps.recipes.context_processors.all_recipes",
             ],
         },
     },

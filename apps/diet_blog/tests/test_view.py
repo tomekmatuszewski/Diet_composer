@@ -2,7 +2,7 @@ import pytest
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-from apps.diet_blog.models import Post
+from apps.diet_blog.models import Post, Comment
 
 
 @pytest.mark.django_db
@@ -94,20 +94,35 @@ class TestPostView:
 @pytest.mark.django_db
 class TestCommentView:
 
-    @pytest.fixture(name="post", scope="class")
-    def create_post(self, django_db_blocker, django_db_setup):
+    @pytest.fixture(name="user", scope="class")
+    def create_user(self, django_db_blocker, django_db_setup):
         with django_db_blocker.unblock():
             user = User.objects.create_user(
                 username="test_user", email="test@demo.pl", password="test12345"
             )
+        yield user
+        with django_db_blocker.unblock():
+            user.delete()
+
+    @pytest.fixture(name="post", scope="class")
+    def create_post(self, django_db_blocker, django_db_setup, user):
+        with django_db_blocker.unblock():
             post = Post.objects.create(
                 title="Test post", content="Test content", author=user
             )
-
         yield post
         with django_db_blocker.unblock():
             post.delete()
-            user.delete()
+
+    @pytest.fixture(name="comment", scope="class")
+    def create_comment(self, django_db_blocker, django_db_setup, user, post):
+        with django_db_blocker.unblock():
+            comment = Comment.objects.create(
+                content="Test content", author=user, post=post
+            )
+        yield comment
+        with django_db_blocker.unblock():
+            comment.delete()
 
     def test_comment_view(self, client, post):
         client.login(username="test_user", password="test12345")
@@ -120,6 +135,22 @@ class TestCommentView:
         assert post.comments.count() == 1
         assert post.comments.all()[0].content == "test comment content"
         assert post.comments.all()[0].author.username == "test_user"
+
+    def test_comment_update_view(self, client, post, comment):
+        client.login(username="test_user", password="test12345")
+        response = client.post(reverse("comment-update", kwargs={"pk": comment.pk}),
+                               {
+                                   "content": "Test content 123",
+                                   "post": post
+                               })
+        assert response.status_code == 302
+        assert post.comments.all()[0].content == "Test content 123"
+
+    def test_comment_delete_view(self, client, post, comment):
+        client.login(username="test_user", password="test12345")
+        response = client.post(reverse("comment-delete", kwargs={"pk": comment.pk}))
+        assert response.status_code == 302
+        assert post.comments.count() == 0
 
 
 @pytest.mark.django_db

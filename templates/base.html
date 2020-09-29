@@ -124,7 +124,11 @@
                                     <span>{{ all_posts.last.title }}</span>
                                     <span>posted by {{ all_posts.last.author }}</span>
                                 </li>
-                                <li class="list-group-item list-group-item-light">Latest Recipes</li>
+                                <li class="list-group-item list-group-item-light">
+                                    <span>Latest recipe:</span>
+                                    <span>{{ all_recipes.last.title }}</span>
+                                    <span>posted by {{ all_recipes.last.author }}</span>
+                                </li>
                                 <li class="list-group-item list-group-item-light">Announcements</li>
                                 <li class="list-group-item list-group-item-light">Current date</li>
                                 <li class="list-group-item list-group-item-light">Weather</li>
@@ -136,8 +140,6 @@
                 </div>
             </div>
         </main>
-
-
 
 
         <!-- Back to top button -->
