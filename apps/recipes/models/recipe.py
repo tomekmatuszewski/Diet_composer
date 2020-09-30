@@ -14,9 +14,9 @@ class Category(models.Model):
 
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="recipes_pics")
+    image = models.ImageField(upload_to="recipes_pics", default="default_recipe.png")
     description = models.TextField()
-    preparing_time = models.CharField(help_text="Preparation time in minutes", max_length=10)
+    preparation_time = models.CharField(help_text="Preparation time in minutes", max_length=10)
     ingredients = models.TextField(help_text="Separate the ingredients on the list "
                                              "with an enter so that they appear one below the other")
     date_public = models.DateTimeField(default=timezone.now)
@@ -29,7 +29,7 @@ class Recipe(models.Model):
         return self.likes.count()
 
     def __repr__(self) -> str:
-        return f"{self.title} {self.author}"
+        return f"{self.title} {self.author.username}"
 
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
