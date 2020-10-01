@@ -1,21 +1,44 @@
 .content-section .media-body img
 {
-    float: left;
+    display: block;
     margin-right: 20px;
     margin-top: 5px;
+    float: left;
+    margin-bottom: 20px;
 
+}
+
+.content-section .article-title
+{
+    margin-bottom: 20px;
+}
+
+
+.content-section h6
+{
+    clear: both;
+    font-weight: bold;
+}
+
+.content-section .fas
+{
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #4D4545;
 }
 
 .content-section p
 {
-    display: flex;
     text-align: justify;
+    margin-top: 10px;
 }
 
 .content-section .read_more
 {
-    margin-top: 30px;
+    display: block;
+    margin-top: 40px;
 }
+
 
 
 

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from apps.users.utils import change_pic_size
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 
 class Category(models.Model):
@@ -23,6 +24,7 @@ class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     likes = models.ManyToManyField(User, related_name="recipe_post")
+    tags = TaggableManager()
 
     @property
     def total_likes(self):

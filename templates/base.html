@@ -119,21 +119,40 @@
                         <div class="well">
                             <p class='text-muted'>You can put any information here you'd like.
                               <ul class="list-group">
+                                <li id="current-date" class="list-group-item list-group-item-light">Current date</li>
                                 <li class="list-group-item list-group-item-light">
-                                    <span>Latest post:</span>
-                                    <span>{{ all_posts.last.title }}</span>
-                                    <span>posted by {{ all_posts.last.author }}</span>
+                                    <p>Latest post:</p>
+                                    <a href="{% url 'post-detail' all_posts.last.id %}">
+                                        <p>{{ all_posts.last.title }}</p>
+                                    </a>
+                                    <small>Author: </small>
+                                    <p>{{ all_posts.last.author }}</p>
                                 </li>
                                 <li class="list-group-item list-group-item-light">
-                                    <span>Latest recipe:</span>
-                                    <span>{{ all_recipes.last.title }}</span>
-                                    <span>posted by {{ all_recipes.last.author }}</span>
+                                    <p>Latest recipe:</p>
+                                    <a href="{% url 'recipe-detail' all_recipes.last.id %}">
+                                        <p>{{ all_recipes.last.title }}</p>
+                                    </a>
+                                    <small>Author: </small>
+                                    <p>{{ all_recipes.last.author }}</p>
                                 </li>
-                                <li class="list-group-item list-group-item-light">Announcements</li>
-                                <li class="list-group-item list-group-item-light">Current date</li>
-                                <li class="list-group-item list-group-item-light">Weather</li>
-                                <li class="list-group-item list-group-item-light">Tags</li>
-                                <li class="list-group-item list-group-item-light">etc</li>
+                                <li class="list-group-item list-group-item-light">
+                                    <p>Tags: </p>
+                                    {% for tag in common_tags %}
+                                        <a class="btn btn-light" type="button" href="#">
+                                            <span>#{{ tag }}</span>
+                                        </a>
+                                    {% endfor %}
+                                </li>
+                                <li class="list-group-item list-group-item-light">Photos:
+
+                                    {% for recipe in all_recipes %}
+                                        <a href="{% url 'recipe-detail' recipe.id %}">
+                                            <img class="img-thumbnail mt-4" src="{{ recipe.image.url }}"/>
+                                        </a>
+                                    {% endfor %}
+
+                                </li>
                               </ul>
                         </div>
                     </div>
@@ -176,7 +195,7 @@
                   </a>
                 </li>
               </ul>
-              <p class="copyright text-muted">Copyright &copy; Your Website 2020</p>
+              <p class="copyright text-muted">Copyright &copy; Diet Composer WordPress 2020</p>
             </div>
           </div>
         </div>
@@ -190,6 +209,7 @@
 
     <script type="text/javascript" src="{% static 'top_nav.js' %}"></script>
     <script type="text/javascript" src="{% static 'scroll_top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'current_date.js' %}"></script>
 
     </body>
 
