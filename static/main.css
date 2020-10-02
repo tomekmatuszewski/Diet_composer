@@ -48,6 +48,10 @@ header nav #mainmenu .btn
     margin-top: 2px;
 }
 
+nav .search
+{
+    color: white !important;
+}
 
 
 /* footer style */
