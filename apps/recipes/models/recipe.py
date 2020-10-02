@@ -35,7 +35,7 @@ class Recipe(models.Model):
 
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
-        change_pic_size(self.image.path, 300, 300)
+        change_pic_size(self.image.path, 350, 200)
 
     def get_absolute_url(self):
         return reverse("recipe-detail", kwargs={"pk": self.pk})
