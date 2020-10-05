@@ -6,7 +6,7 @@ function highlightSearch() {
         for (i = 0; i < tag.length; i++) {
             let text = tag[i].innerHTML;
             let re = new RegExp(searched, "g"); // search for all instances
-            let newText = text.replace(re, `<mark>${searched}</mark>`);
+            let newText = text.replace(re, `<span>${searched}</span>`);
             tag[i].innerHTML = newText;
         }
     }
