@@ -4,6 +4,12 @@ body
     font-family: 'Merriweather', serif;
 }
 
+/* highlight style */
+body p span
+{
+    background-color: #e4f824;
+}
+
 /* header style */
 header .title
 {

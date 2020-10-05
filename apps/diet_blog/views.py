@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.urls import reverse, reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
-from apps.diet_blog.models import Post, Comment
-from django.http import HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
+from apps.diet_blog.models import Comment, Post
 
 
 class PostListView(ListView):
@@ -81,10 +81,10 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     fields = ["content"]
 
     def get_success_url(self):
-        return reverse_lazy('post-detail', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy("post-detail", kwargs={"pk": self.kwargs["pk"]})
 
     def form_valid(self, form):
-        form.instance.post_id = self.kwargs['pk']
+        form.instance.post_id = self.kwargs["pk"]
         form.instance.author = self.request.user
         return super().form_valid(form)
 
@@ -104,14 +104,14 @@ class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return False
 
     def get_success_url(self):
-        return reverse_lazy('post-detail', kwargs={'pk': self.object.post.pk})
+        return reverse_lazy("post-detail", kwargs={"pk": self.object.post.pk})
 
 
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment
 
     def get_success_url(self):
-        return reverse_lazy('post-detail', kwargs={'pk': self.object.post.pk})
+        return reverse_lazy("post-detail", kwargs={"pk": self.object.post.pk})
 
     def test_func(self):
         post = self.get_object()
@@ -122,6 +122,6 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def LikeView(request, pk):
 
-    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post = get_object_or_404(Post, id=request.POST.get("post_id"))
     post.likes.add(request.user)
     return HttpResponseRedirect(reverse("post-detail", args=[str(pk)]))

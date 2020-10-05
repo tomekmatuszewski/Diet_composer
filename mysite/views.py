@@ -11,4 +11,3 @@ class AboutView(TemplateView):
 
     template_name = "about.html"
     extra_context = {"title": "About"}
-

@@ -1,7 +1,7 @@
 import pytest
 from django.contrib.auth.models import User
 
-from apps.diet_blog.models import Post, Comment
+from apps.diet_blog.models import Comment, Post
 
 
 @pytest.mark.django_db()

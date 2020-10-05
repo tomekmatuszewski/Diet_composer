@@ -2,7 +2,7 @@ import pytest
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-from apps.diet_blog.models import Post, Comment
+from apps.diet_blog.models import Comment, Post
 
 
 @pytest.mark.django_db
@@ -93,7 +93,6 @@ class TestPostView:
 
 @pytest.mark.django_db
 class TestCommentView:
-
     @pytest.fixture(name="user", scope="class")
     def create_user(self, django_db_blocker, django_db_setup):
         with django_db_blocker.unblock():
@@ -126,11 +125,10 @@ class TestCommentView:
 
     def test_comment_view(self, client, post):
         client.login(username="test_user", password="test12345")
-        response = client.post(reverse("comment-create", kwargs={"pk": post.pk}),
-                               {
-                                   "content": "test comment content",
-                                   "post": post
-                               })
+        response = client.post(
+            reverse("comment-create", kwargs={"pk": post.pk}),
+            {"content": "test comment content", "post": post},
+        )
         assert response.status_code == 302
         assert post.comments.count() == 1
         assert post.comments.all()[0].content == "test comment content"
@@ -138,11 +136,10 @@ class TestCommentView:
 
     def test_comment_update_view(self, client, post, comment):
         client.login(username="test_user", password="test12345")
-        response = client.post(reverse("comment-update", kwargs={"pk": comment.pk}),
-                               {
-                                   "content": "Test content 123",
-                                   "post": post
-                               })
+        response = client.post(
+            reverse("comment-update", kwargs={"pk": comment.pk}),
+            {"content": "Test content 123", "post": post},
+        )
         assert response.status_code == 302
         assert post.comments.all()[0].content == "Test content 123"
 
@@ -155,7 +152,6 @@ class TestCommentView:
 
 @pytest.mark.django_db
 class TestLikeView:
-
     @pytest.fixture(name="post", scope="class")
     def create_post(self, django_db_blocker, django_db_setup):
         with django_db_blocker.unblock():
@@ -174,15 +170,8 @@ class TestLikeView:
 
     def test_like_view(self, post, client):
         client.login(username="test_user", password="test12345")
-        response = client.post(reverse("like-post", kwargs={"pk": post.pk}), {"post_id": post.pk})
+        response = client.post(
+            reverse("like-post", kwargs={"pk": post.pk}), {"post_id": post.pk}
+        )
         assert response.status_code == 302
         assert post.likes.count() == 1
-
-
-
-
-
-
-
-
-

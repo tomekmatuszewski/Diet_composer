@@ -1,10 +1,11 @@
 import pytest
 from django.contrib.auth.models import User
 from django.urls import resolve, reverse
-from apps.recipes.models import Recipe, Category
 
-from apps.recipes.views import (RecipesListView, RecipeCreateView, RecipeDeleteView,
-                                  RecipeDetailView, RecipeUpdateView, LikeView)
+from apps.recipes.models import Category, Recipe
+from apps.recipes.views import (LikeView, RecipeCreateView, RecipeDeleteView,
+                                RecipeDetailView, RecipesListView,
+                                RecipeUpdateView)
 
 
 @pytest.mark.django_db()
@@ -22,9 +23,13 @@ class TestUrls:
         with django_db_blocker.unblock():
             category = Category.objects.create(name="cat1")
             recipe = Recipe.objects.create(
-                title="Test recipe", description="Test description", author=user,
-                preparation_time="10 min", ingredients="test ingredients",
-                category=category)
+                title="Test recipe",
+                description="Test description",
+                author=user,
+                preparation_time="10 min",
+                ingredients="test ingredients",
+                category=category,
+            )
             yield recipe
         with django_db_blocker.unblock():
             recipe.delete()

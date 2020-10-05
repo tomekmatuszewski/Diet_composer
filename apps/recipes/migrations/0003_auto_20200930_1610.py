@@ -6,18 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('recipes', '0002_recipe_likes'),
+        ("recipes", "0002_recipe_likes"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='recipe',
-            old_name='preparing_time',
-            new_name='preparation_time',
+            model_name="recipe",
+            old_name="preparing_time",
+            new_name="preparation_time",
         ),
         migrations.AlterField(
-            model_name='recipe',
-            name='image',
-            field=models.ImageField(default='default_recipe.png', upload_to='recipes_pics'),
+            model_name="recipe",
+            name="image",
+            field=models.ImageField(
+                default="default_recipe.png", upload_to="recipes_pics"
+            ),
         ),
     ]

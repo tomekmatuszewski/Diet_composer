@@ -1,11 +1,12 @@
 import pytest
 from django.contrib.auth.models import User
 from django.urls import resolve, reverse
-from apps.diet_blog.models import Post, Comment
 
-from apps.diet_blog.views import (PostCreateView, PostDeleteView,
-                                  PostDetailView, PostListView, PostUpdateView,
-                                  UserPostListView, CommentCreateView, CommentUpdateView, CommentDeleteView, LikeView)
+from apps.diet_blog.models import Comment, Post
+from apps.diet_blog.views import (CommentCreateView, CommentDeleteView,
+                                  CommentUpdateView, LikeView, PostCreateView,
+                                  PostDeleteView, PostDetailView, PostListView,
+                                  PostUpdateView, UserPostListView)
 
 
 @pytest.mark.django_db()
@@ -53,23 +54,17 @@ class TestUrls:
         assert resolve(url).func.view_class == UserPostListView
 
     def test_user_comment_url(self, user, post):
-        comment = Comment.objects.create(
-            content="Test content", author=user, post=post
-        )
+        comment = Comment.objects.create(content="Test content", author=user, post=post)
         url = reverse("comment-create", kwargs={"pk": comment.pk})
         assert resolve(url).func.view_class == CommentCreateView
 
     def test_user_comment_update_url(self, user, post):
-        comment = Comment.objects.create(
-            content="Test content", author=user, post=post
-        )
+        comment = Comment.objects.create(content="Test content", author=user, post=post)
         url = reverse("comment-update", kwargs={"pk": comment.pk})
         assert resolve(url).func.view_class == CommentUpdateView
 
     def test_user_comment_delete_url(self, user, post):
-        comment = Comment.objects.create(
-            content="Test content", author=user, post=post
-        )
+        comment = Comment.objects.create(content="Test content", author=user, post=post)
         url = reverse("comment-delete", kwargs={"pk": comment.pk})
         assert resolve(url).func.view_class == CommentDeleteView
 

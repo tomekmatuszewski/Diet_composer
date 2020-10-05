@@ -1,7 +1,7 @@
 import pytest
 from django.contrib.auth.models import User
 
-from apps.recipes.models import Recipe, Category
+from apps.recipes.models import Category, Recipe
 
 
 @pytest.mark.django_db()
@@ -14,9 +14,12 @@ class TestRecipe:
             )
             category = Category.objects.create(name="cat1")
             recipe = Recipe.objects.create(
-                title="Test recipe", description="Test description", author=user,
-                preparation_time="10 min", ingredients="test ingredients",
-                category=category
+                title="Test recipe",
+                description="Test description",
+                author=user,
+                preparation_time="10 min",
+                ingredients="test ingredients",
+                category=category,
             )
         yield recipe
         with django_db_blocker.unblock():
@@ -35,9 +38,4 @@ class TestRecipe:
         assert recipe.category.name == "cat1"
 
     def test_get_absolute_url(self, recipe):
-        assert recipe.get_absolute_url() == '/recipe/1/'
-
-
-
-
-
+        assert recipe.get_absolute_url() == "/recipe/1/"

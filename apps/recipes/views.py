@@ -1,8 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
 from apps.recipes.models import Recipe
 
@@ -29,8 +30,15 @@ class RecipeDetailView(DetailView):
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
-    fields = ["category", "title", "preparation_time", "description",
-              "ingredients", "image", "tags"]
+    fields = [
+        "category",
+        "title",
+        "preparation_time",
+        "description",
+        "ingredients",
+        "image",
+        "tags",
+    ]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -39,8 +47,15 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
 class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Recipe
-    fields = ["category", "title", "preparation_time", "description",
-              "ingredients", "image", "tags"]
+    fields = [
+        "category",
+        "title",
+        "preparation_time",
+        "description",
+        "ingredients",
+        "image",
+        "tags",
+    ]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -66,6 +81,6 @@ class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def LikeView(request, pk):
 
-    recipe = get_object_or_404(Recipe, id=request.POST.get('recipe_id'))
+    recipe = get_object_or_404(Recipe, id=request.POST.get("recipe_id"))
     recipe.likes.add(request.user)
     return HttpResponseRedirect(reverse("recipe-detail", args=[str(pk)]))

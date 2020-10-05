@@ -1,1 +1,1 @@
-from .recipe import Recipe, Category
+from .recipe import Category, Recipe

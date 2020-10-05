@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views import (PostCreateView, PostDeleteView, PostDetailView,
-                    PostListView, PostUpdateView, UserPostListView, CommentCreateView,
-                    CommentUpdateView, CommentDeleteView, LikeView)
+from .views import (CommentCreateView, CommentDeleteView, CommentUpdateView,
+                    LikeView, PostCreateView, PostDeleteView, PostDetailView,
+                    PostListView, PostUpdateView, UserPostListView)
 
 urlpatterns = [
     path("blog/", PostListView.as_view(), name="diet_composer-blog"),
@@ -13,6 +13,8 @@ urlpatterns = [
     path("user/<str:username>", UserPostListView.as_view(), name="user-posts"),
     path("post/<int:pk>/comment", CommentCreateView.as_view(), name="comment-create"),
     path("comment/<int:pk>/update", CommentUpdateView.as_view(), name="comment-update"),
-    path("comment/<int:pk>/delete/", CommentDeleteView.as_view(), name="comment-delete"),
-    path('like/<int:pk>', LikeView, name="like-post"),
+    path(
+        "comment/<int:pk>/delete/", CommentDeleteView.as_view(), name="comment-delete"
+    ),
+    path("like/<int:pk>", LikeView, name="like-post"),
 ]

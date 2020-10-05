@@ -83,7 +83,7 @@
                         <!-- Search form -->
                         <form class="form-inline" id="searchForm" action="">
                             <input id="searchItem" class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search">
-                            <a id="gotoText" class="search" type="button" onclick="">
+                            <a id="gotoText" class="search" type="button" onclick="highlightSearch();">
                                 <i class="fas fa-search" aria-hidden="true"></i>
                             </a>
                         </form>
@@ -217,7 +217,7 @@
     <script type="text/javascript" src="{% static 'top_nav.js' %}"></script>
     <script type="text/javascript" src="{% static 'scroll_top.js' %}"></script>
     <script type="text/javascript" src="{% static 'current_date.js' %}"></script>
-    <script type="text/javascript" src="{% static 'search_and_go.js' %}"></script>
+    <script type="text/javascript" src="{% static 'search_and_highlight.js' %}"></script>
 
     </body>
 
