@@ -1,0 +1,1 @@
+from apps.diet_composer.models.product import ProductCategory, Product

@@ -17,9 +17,9 @@ def validate_age(value):
 
 def calculate_bmr(weight, height, age, gender) -> float:
     if gender == "Male":
-        return round((9.99 * weight + 6.25 * height - 4.92 * age + 5), 2)
+        return round((9.99 * float(weight) + 6.25 * float(height) - 4.92 * age + 5), 2)
     elif gender == "Female":
-        return round((9.99 * weight + 6.25 * height - 4.92 * age - 161), 2)
+        return round((9.99 * float(weight) + 6.25 * float(height) - 4.92 * age - 161), 2)
 
 
 def calculate_cmr(bmr, activity) -> float:
