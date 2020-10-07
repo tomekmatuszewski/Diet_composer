@@ -7,6 +7,6 @@ Used libraries:
 - Django 3.1
 - Pytest for django
 
-Templates created in HTML5, CSS3, Bootstrap
+Templates created in HTML5, CSS3, Bootstrap, JavaScript
 
 

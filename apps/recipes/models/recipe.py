@@ -35,8 +35,8 @@ class Recipe(models.Model):
     def total_likes(self):
         return self.likes.count()
 
-    def __repr__(self) -> str:
-        return f"{self.title} {self.author.username}"
+    def __str__(self) -> str:
+        return f"No {self.id} title: {self.title} author: {self.author.username}"
 
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)

@@ -17,7 +17,7 @@ class Profile(models.Model):
         Male = 'Male'
         Female = 'Female'
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     image = models.ImageField(default="default.jpg", upload_to="profile_pics")
     age = models.PositiveSmallIntegerField(validators=[validate_age], null=True, blank=True)
     gender = models.CharField(choices=Gender.choices, max_length=10,  null=True, blank=True)
@@ -27,8 +27,8 @@ class Profile(models.Model):
                                  null=True, blank=True, help_text="weight in kilograms")
     activity = models.ForeignKey(UserActivity, on_delete=models.PROTECT, null=True, blank=True)
 
-    def __repr__(self) -> str:
-        return f"{self.user.username} Profile"
+    def __str__(self) -> str:
+        return f"{self.user.username} profile"
 
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)

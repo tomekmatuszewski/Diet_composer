@@ -15,8 +15,8 @@ class Post(models.Model):
     def total_likes(self):
         return self.likes.count()
 
-    def __repr__(self):
-        return f"Post title: {self.title}"
+    def __str__(self):
+        return f"Post {self.id}, title: {self.title}"
 
     def get_absolute_url(self):
         return reverse("post-detail", kwargs={"pk": self.pk})
