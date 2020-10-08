@@ -2,14 +2,14 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
-        <form method="post">
+        <form method="post" id="product-form" data-products-url="{% url 'ajax-load-products' %}" novalidate>
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Add your product</legend>
+                <legend class="border-bottom mb-4">Ingredient</legend>
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Post</button>
+                <button class="btn btn-outline-info" type="submit">Add Ingredient</button>
             </div>
         </form>
     </div>

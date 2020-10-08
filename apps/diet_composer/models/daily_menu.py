@@ -8,7 +8,7 @@ class DailyMenu(models.Model):
 
     name = models.CharField(max_length=150)
     number_of_meals = models.PositiveSmallIntegerField(validators=[MaxValueValidator(6), MinValueValidator(1)])
-    meals = models.ManyToManyField(Meal, related_name="meals")
+    meals = models.ManyToManyField(Meal, related_name="meals", blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_menus")
 
     def __str__(self):

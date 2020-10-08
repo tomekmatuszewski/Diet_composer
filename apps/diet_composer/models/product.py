@@ -6,7 +6,7 @@ class ProductCategory(models.Model):
     name = models.CharField(max_length=150)
 
     def __str__(self):
-        return f"{self.name}",
+        return f"{self.name}"
 
 
 class Product(models.Model):
@@ -30,6 +30,7 @@ class ProductItem(models.Model):
         piece = 'piece'
         package = 'package'
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, related_name="prod_items", null=True, blank=True)
     unit = models.CharField(choices=Unit.choices, null=True, blank=True, max_length=150)
     weight = models.DecimalField(max_digits=6, decimal_places=2, help_text="Depends on "
                                                                            "selected unit - grams or piece/package")
@@ -38,25 +39,25 @@ class ProductItem(models.Model):
         return f"{self.product.name} item"
 
     @property
-    def calories(self):
+    def calories(self) -> float:
         calories = calculate_params(self.unit, self.product.calories_per_100,
                                     self.weight, self.product.weight_of_pcs)
         return calories
 
     @property
-    def proteins(self):
+    def proteins(self) -> float:
         proteins = calculate_params(self.unit, self.product.proteins_per_100,
                                     self.weight, self.product.weight_of_pcs)
         return proteins
 
     @property
-    def fats(self):
+    def fats(self) -> float:
         fats = calculate_params(self.unit, self.product.fats_per_100,
                                     self.weight, self.product.weight_of_pcs)
         return fats
 
     @property
-    def carbohydrates(self):
+    def carbohydrates(self) -> float:
         carb = calculate_params(self.unit, self.product.carbohydrates_per_100,
                                 self.weight, self.product.weight_of_pcs)
         return carb

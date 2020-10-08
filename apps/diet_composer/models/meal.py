@@ -11,7 +11,7 @@ class Meal(models.Model):
         post_workout = 'Post-workout meal'
         supper = "Supper"
 
-    name = models.CharField(choices=Name.choices, max_length=50)
+    name = models.CharField(choices=Name.choices, max_length=50, null=True, blank=True)
     ingredients = models.ManyToManyField(ProductItem, related_name="ingredients")
 
     def __str__(self):
