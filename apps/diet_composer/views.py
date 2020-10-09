@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, UpdateView, ListView
+from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DetailView
 from apps.diet_composer.models import DailyMenu, Meal, Product, ProductItem
 from apps.diet_composer.forms import ProductItemForm
 from django.contrib.messages.views import SuccessMessageMixin
@@ -14,6 +14,20 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy("create-menu")
+
+
+class ProductItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+
+    template_name = "diet_composer/productitem_form.html"
+    form_class = ProductItemForm
+    success_url = reverse_lazy("daily-menu")
+    success_message = "Ingredient added to meal"
+
+
+def load_products(request):
+    category_id = request.GET.get('category')
+    products = Product.objects.filter(category_id=category_id).order_by('name')
+    return render(request, 'diet_composer/product_dropdown_list_options.html', {'products': products})
 
 
 class UserMenuListView(ListView):
@@ -41,18 +55,21 @@ class MenuCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy("user-menus", kwargs={"username": self.object.author.username})
 
 
-class ProductItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class MenuDetailView(DetailView):
 
-    template_name = "diet_composer/productitem_form.html"
-    form_class = ProductItemForm
-    success_url = reverse_lazy("daily-menu")
-    success_message = "Ingredient added to meal"
+    model = DailyMenu
+    template_name = "diet_composer/menu_detail.html"
 
 
-def load_products(request):
-    category_id = request.GET.get('category')
-    products = Product.objects.filter(category_id=category_id).order_by('name')
-    return render(request, 'diet_composer/product_dropdown_list_options.html', {'products': products})
+class MealCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+
+    model = Meal
+    fields = ["name"]
+    success_message = "Succesfully added meal to your Menu"
+
+
+
+
 
 
 

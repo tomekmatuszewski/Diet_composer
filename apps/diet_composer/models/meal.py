@@ -17,5 +17,14 @@ class Meal(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+    @property
+    def total_calories(self):
+        total = 0
+        for ingredient in self.ingredients.all():
+            total += ingredient.calories
+        return total
+
+
+
 
 

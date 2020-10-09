@@ -1,20 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ user.profile.image.url }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <span class="article-author mr-2"><a  href="#">{{ user.username }}</a></span>
+            </div>
+            <div class="article-content">
+                <p>BMR: {{ user.profile.bmr }}</p>
+                <p>Daily caloric demand (CMR): {{ user.profile.cmr }} kcal</p>
+                <p>Recommended daily amount of protein: {{ user.profile.daily_proteins }} g</p>
+                <p>Recommended daily amount of fats: {{ user.profile.daily_fats }} g</p>
+                <p>Recommended daily amount of carbohydrates: {{ user.profile.daily_carb }} g</p>
+            </div>
+    </div>
+
+    </article>
+
     {% if not user.user_menus.count %}
         <p>No menus creted by {{ user.username }}</p>
         <a class="btn btn-outline-info" href="{% url 'create-menu' %}">Add menu</a>
     {% else %}
+        <h5>Created menus</h5>
         {% for menu in menus %}
-        <article class="media content-section">
-            <img class="rounded-circle article-img" src="{{ menu.author.profile.image.url }}">
-            <div class="media-body">
-                <div class="article-metadata">
-                    <span class="article-author mr-2"><a  href="#">{{ menu.author }}</a></span>
+            <article class="media content-section">
+                <div class="media-body">
+                    <h6><a class="article-title" href="#">{{ menu.name }}</a></h6>
+                    <p>Number of meals : {{ menu.number_of_meals }}</p>
+                    <a class="btn btn-outline-info" href="{% url 'menu-details' menu.id %}">Details</a>
                 </div>
-                <h6><a class="article-title" href="#">{{ menu.name }}</a></h6>
-            </div>
-        </article>
+            </article>
         {% endfor %}
+        <a class="btn btn-outline-info" href="{% url 'create-menu' %}">Add new menu</a>
     {% endif %}
 
 

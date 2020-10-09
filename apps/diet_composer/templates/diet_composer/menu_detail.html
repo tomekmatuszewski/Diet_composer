@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+
+            <h5 class="article-title">{{ object.name }}</h5>
+            {% for meal in object.meals.all %}
+                <p class="article-content">{{ meal.name }}</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Ingrendient name</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Calories [kcal]</th>
+                            <th scope="col">Proteins [g]</th>
+                            <th scope="col">Fats [g]</th>
+                            <th scope="col">Carbohydrates [g]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ingredient in meal.ingredients.all %}
+                            <tr>
+                                <th scope="row">{{ ingredient.product.id }}</th>
+                                <td>{{ ingredient.product.name }}</td>
+                                <td>{{ ingredient.weight }}</td>
+                                <td>{{ ingredient.calories }}</td>
+                                <td>{{ ingredient.proteins }}</td>
+                                <td>{{ ingredient.fats }}</td>
+                                <td>{{ ingredient.carbohydrates }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p>Total calories: {{ meal.total_calories }} kcal</p>
+            {% endfor %}
+
+            {% if object.author == user %}
+            <div class="buttons">
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1 mr-3" href="">Delete</a>
+            </div>
+            {% endif %}
+
+
+
+        </div>
+    </article>
+
+    <p>Total diet calories: {{ object.total_calories }} kcal</p>
+{% endblock content %}

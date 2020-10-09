@@ -14,5 +14,15 @@ class DailyMenu(models.Model):
     def __str__(self):
         return f"Daily Menu {self.name} created by {self.author.username}"
 
+    @property
+    def get_meals_number(self):
+        return range(1, self.number_of_meals+1)
+
+    @property
+    def total_calories(self):
+        total = 0
+        for meal in self.meals.all():
+            total += meal.total_calories
+        return total
 
 
