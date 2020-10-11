@@ -1,11 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DetailView
+from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from apps.diet_composer.models import DailyMenu, Meal, Product, ProductItem
 from apps.diet_composer.forms import ProductItemForm
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -20,8 +22,19 @@ class ProductItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
 
     template_name = "diet_composer/productitem_form.html"
     form_class = ProductItemForm
-    success_url = reverse_lazy("daily-menu")
     success_message = "Ingredient added to meal"
+
+    # def form_valid(self, form):
+    #     menu = DailyMenu.objects.get(id=self.kwargs["pk"])
+    #     if menu.meals.count() < menu.number_of_meals:
+    #         name = form.cleaned_data['name']
+    #         meal = Meal(name=name)
+    #         meal.save()
+    #         menu.meals.add(meal)
+    #         messages.success(self.request, message="Succesfully added meal to your Menu")
+    #     else:
+    #         messages.error(self.request, message="Max number of meals achieved")
+    #     return HttpResponseRedirect(reverse_lazy("menu-details", args=[self.kwargs["pk"]]))
 
 
 def load_products(request):
@@ -62,13 +75,21 @@ class MenuDetailView(DetailView):
 
 
 class MealCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-
     model = Meal
     fields = ["name"]
     success_message = "Succesfully added meal to your Menu"
 
-
-
+    def form_valid(self, form):
+        menu = DailyMenu.objects.get(id=self.kwargs["pk"])
+        if menu.meals.count() < menu.number_of_meals:
+            name = form.cleaned_data['name']
+            meal = Meal(name=name)
+            meal.save()
+            menu.meals.add(meal)
+            messages.success(self.request, message="Succesfully added meal to your Menu")
+        else:
+            messages.error(self.request, message="Max number of meals achieved")
+        return HttpResponseRedirect(reverse_lazy("menu-details", args=[self.kwargs["pk"]]))
 
 
 

@@ -24,6 +24,29 @@ class Meal(models.Model):
             total += ingredient.calories
         return total
 
+    @property
+    def total_proteins(self):
+        total = 0
+        for ingredient in self.ingredients.all():
+            total += ingredient.proteins
+        return total
+
+    @property
+    def total_fats(self):
+        total = 0
+        for ingredient in self.ingredients.all():
+            total += ingredient.fats
+        return total
+
+    @property
+    def total_carbohydrates(self):
+        total = 0
+        for ingredient in self.ingredients.all():
+            total += ingredient.carbohydrates
+        return total
+
+
+
 
 
 

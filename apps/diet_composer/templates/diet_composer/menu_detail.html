@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-    <article class="media content-section">
+    <article id="menu" class="media content-section">
         <div class="media-body">
-
             <h5 class="article-title">{{ object.name }}</h5>
             {% for meal in object.meals.all %}
                 <p class="article-content">{{ meal.name }}</p>
+                <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'ingredient-create' meal.id %}">Add Ingredient</a>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Ingrendient name</th>
                             <th scope="col">Weight</th>
                             <th scope="col">Calories [kcal]</th>
@@ -21,8 +20,7 @@
                     <tbody>
                         {% for ingredient in meal.ingredients.all %}
                             <tr>
-                                <th scope="row">{{ ingredient.product.id }}</th>
-                                <td>{{ ingredient.product.name }}</td>
+                                <th scope="row">{{ ingredient.product.name }}</th>
                                 <td>{{ ingredient.weight }}</td>
                                 <td>{{ ingredient.calories }}</td>
                                 <td>{{ ingredient.proteins }}</td>
@@ -32,17 +30,19 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <p>Total calories: {{ meal.total_calories }} kcal</p>
+                <span class="ml-3">Total calories: {{ meal.total_calories }} kcal</span>
+                <span class="ml-3">Total proteins: {{ meal.total_proteins }} g</span>
+                <span class="ml-3">Total fats: {{ meal.total_fats }} g</span>
+                <span class="ml-3">Total carbohydrates: {{ meal.total_carbohydrates }} g</span>
             {% endfor %}
 
             {% if object.author == user %}
-            <div class="buttons">
+            <div class="buttons mt-5">
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="">Update</a>
                 <a class="btn btn-danger btn-sm mt-1 mb-1 mr-3" href="">Delete</a>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1 mr-3" href="{% url 'meal-create' object.id %}">Add Meal</a>
             </div>
             {% endif %}
-
-
 
         </div>
     </article>
