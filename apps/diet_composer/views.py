@@ -37,7 +37,7 @@ class ProductItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
             if check_nutritional_status(self.request.user, menu, ingredient):
                 ingredient.save()
                 meal.ingredients.add(ingredient)
-                messages.success(self.request, message=f"Succesfully added ingredient to {meal.name}")
+                messages.success(self.request, message=f"Successfully added ingredient to {meal.name}")
             else:
                 messages.error(self.request, message="The nutritional value of your menu has exceeded your personal limit")
         return HttpResponseRedirect(reverse_lazy("menu-details", args=[self.kwargs["menu_id"]]))
@@ -48,14 +48,25 @@ class ProductItemUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
     template_name = "diet_composer/productitem_form.html"
     form_class = ProductItemForm
     model = ProductItem
-    success_message = "Succesfully edited ingredient"
 
     def get_success_url(self):
         return reverse_lazy("menu-details", kwargs={"pk": self.kwargs["menu_id"]})
 
+    def get_success_message(self, cleaned_data):
+        return f"Successfully edited ingredient: {cleaned_data['product'].name}"
 
-class ProductItemDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    pass
+
+class ProductItemDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+    model = ProductItem
+
+    def get_success_url(self):
+        return reverse_lazy("menu-details", kwargs={"pk": self.kwargs["menu_id"]})
+
+    def test_func(self):
+        menu = DailyMenu.objects.get(id=self.kwargs["menu_id"])
+        if self.request.user == menu.author:
+            return True
+        return False
 
 
 def load_products(request):
@@ -95,6 +106,32 @@ class MenuDetailView(DetailView):
     template_name = "diet_composer/menu_detail.html"
 
 
+class MenuUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = DailyMenu
+    fields = ["name", "number_of_meals"]
+    template_name = "diet_composer/create_menu.html"
+
+    def get_success_message(self, cleaned_data):
+        return f"Successfully edited menu: {cleaned_data['name']}"
+
+    def get_success_url(self):
+        return reverse_lazy("user-menus", kwargs={"username": self.object.author.username})
+
+
+class MenuDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+    model = DailyMenu
+    template_name = "diet_composer/menu_confirm_delete.html"
+
+    def get_success_url(self):
+        return reverse_lazy("user-menus", kwargs={"username": self.object.author.username})
+
+    def test_func(self):
+        menu = self.get_object()
+        if self.request.user == menu.author:
+            return True
+        return False
+
+
 class MealCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Meal
     fields = ["name"]
@@ -111,6 +148,8 @@ class MealCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         else:
             messages.error(self.request, message=f"Max number of meals achieved for {menu.name}")
         return HttpResponseRedirect(reverse_lazy("menu-details", args=[self.kwargs["pk"]]))
+
+
 
 
 

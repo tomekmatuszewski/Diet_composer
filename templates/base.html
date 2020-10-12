@@ -43,42 +43,42 @@
                             <a class="nav-link" href="{% url 'diet_composer-home' %}"> Main Page </a>
                         </li>
                         {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <div class="btn-group">
-                                <a class="nav-link" type="button" href="{% url 'user-menus' user.username %}">Composer</a>
-                                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{% url 'product-create' %}">New Product</a>
+                            <li class="nav-item">
+                                <div class="btn-group">
+                                    <a class="nav-link" type="button" href="{% url 'user-menus' user.username %}">Composer</a>
+                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{% url 'product-create' %}">New Product</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="btn-group">
-                                <a class="nav-link" type="button" href="{% url 'diet_composer-blog' %}">Blog</a>
-                                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{% url 'post-create' %}">New Post</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="btn-group">
+                                    <a class="nav-link" type="button" href="{% url 'diet_composer-blog' %}">Blog</a>
+                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{% url 'post-create' %}">New Post</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="btn-group">
-                                <a class="nav-link" type="button" href="{% url 'diet_composer-recipes' %}">Recipes</a>
-                                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{% url 'recipe-create' %}">New Recipe</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="btn-group">
+                                    <a class="nav-link" type="button" href="{% url 'diet_composer-recipes' %}">Recipes</a>
+                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{% url 'recipe-create' %}">New Recipe</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
                         {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="#"> Composer </a>

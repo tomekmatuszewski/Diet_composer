@@ -6,8 +6,7 @@
             <div class="article-metadata">
                 <span class="article-author mr-2"><a  href="#">{{ user.username }}</a></span>
             </div>
-            <div class="article-content">
-                <p>BMR: {{ user.profile.bmr }}</p>
+            <div>
                 <p>Daily caloric demand (CMR): {{ user.profile.cmr }} kcal</p>
                 <p>Recommended daily amount of protein: {{ user.profile.daily_proteins }} g</p>
                 <p>Recommended daily amount of fats: {{ user.profile.daily_fats }} g</p>
@@ -21,17 +20,54 @@
         <p>No menus creted by {{ user.username }}</p>
         <a class="btn btn-outline-info" href="{% url 'create-menu' %}">Add menu</a>
     {% else %}
-        <h5>Created menus</h5>
+        <h5 class="menus-list-title">Created menus</h5>
         {% for menu in menus %}
-            <article class="media content-section">
+            <article id="menu" class="media content-section">
                 <div class="media-body">
-                    <h6><a class="article-title" href="#">{{ menu.name }}</a></h6>
-                    <p>Number of meals : {{ menu.number_of_meals }}</p>
-                    <a class="btn btn-outline-info" href="{% url 'menu-details' menu.id %}">Details</a>
+                    <h5 class="article-title">{{ menu.name }}</h5>
+                    <p>Max number of meals : {{ menu.number_of_meals }}</p>
+
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th class="index-table" scope="col">Meal name</th>
+                                <th class="col-header" scope="col">Calories [kcal]</th>
+                                <th class="col-header" scope="col">Proteins [g]</th>
+                                <th class="col-header" scope="col">Fats [g]</th>
+                                <th class="col-header" scope="col">Carbo [g]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for meal in menu.meals.all %}
+                                <tr>
+                                    <th scope="row" class="index-table">{{ meal.name }}</th>
+                                    <td>{{ meal.total_calories }}</td>
+                                    <td>{{ meal.total_proteins }}</td>
+                                    <td>{{ meal.total_fats }}</td>
+                                    <td>{{ meal.total_carbohydrates }}</td>
+                            {% endfor %}
+                                </tr>
+                        </tbody>
+                         <thead>
+                            <tr class="table-active">
+                                <th class="index-table" scope="col">Total for menu</th>
+                                <td class="summary">{{ menu.total_calories }}</td>
+                                <td class="summary">{{ menu.total_proteins }}</td>
+                                <td class="summary">{{ menu.total_fats }}</td>
+                                <td class="summary">{{ menu.total_carbohydrates }}</td>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <div class="buttons-group">
+                        <a class="btn btn-outline-info btn-sm" href="{% url 'menu-details' menu.id %}">Details</a>
+                        <a class="btn btn-outline-info btn-sm ml-2" href="{% url 'menu-delete' user.username menu.id %}">Delete</a>
+                        <a class="btn btn-outline-info btn-sm ml-2" href="{% url 'menu-update' user.username menu.id %}">Update</a>
+                    </div>
                 </div>
             </article>
         {% endfor %}
-        <a class="btn btn-outline-info" href="{% url 'create-menu' %}">Add new menu</a>
+        <a id="add-menu" class="btn btn-outline-info" href="{% url 'create-menu' %}">Add Menu</a>
     {% endif %}
 
 

@@ -2,6 +2,7 @@ from apps.diet_composer.models.meal import Meal
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
+from apps.diet_composer.utils import calculate_total_value_menu
 
 
 class DailyMenu(models.Model):
@@ -15,35 +16,23 @@ class DailyMenu(models.Model):
         return f"Daily Menu {self.name} created by {self.author.username}"
 
     @property
-    def get_meals_number(self):
-        return range(1, self.number_of_meals+1)
-
-    @property
     def total_calories(self) -> float:
-        total = 0
-        for meal in self.meals.all():
-            total += meal.total_calories
-        return total
+        value = calculate_total_value_menu(self.meals.all(), "calories")
+        return value
 
     @property
     def total_proteins(self) -> float:
-        total = 0
-        for meal in self.meals.all():
-            total += meal.total_proteins
-        return total
+        value = calculate_total_value_menu(self.meals.all(), "proteins")
+        return value
 
     @property
     def total_fats(self) -> float:
-        total = 0
-        for meal in self.meals.all():
-            total += meal.total_fats
-        return total
+        value = calculate_total_value_menu(self.meals.all(), "fats")
+        return value
 
     @property
     def total_carbohydrates(self) -> float:
-        total = 0
-        for meal in self.meals.all():
-            total += meal.total_carbohydrates
-        return total
+        value = calculate_total_value_menu(self.meals.all(), "carbohydrates")
+        return value
 
 

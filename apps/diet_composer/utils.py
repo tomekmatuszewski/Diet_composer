@@ -14,3 +14,31 @@ def check_nutritional_status(user, menu, ingredient) -> bool:
             fats > user.profile.daily_fats or carbohydrates > user.profile.daily_carb:
         return False
     return True
+
+
+def calculate_total_value_menu(lst: list, flag: str) -> float:
+    total = 0
+    for item in lst:
+        if flag == "calories":
+            total += item.total_calories
+        elif flag == "proteins":
+            total += item.total_proteins
+        elif flag == "fats":
+            total += item.total_fats
+        else:
+            total += item.total_carbohydrates
+    return round(total, 2)
+
+
+def calculate_total_value_meal(lst: list, flag: str) -> float:
+    total = 0
+    for item in lst:
+        if flag == "calories":
+            total += item.calories
+        elif flag == "proteins":
+            total += item.proteins
+        elif flag == "fats":
+            total += item.fats
+        else:
+            total += item.carbohydrates
+    return round(total, 2)

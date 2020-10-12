@@ -1,5 +1,6 @@
 from apps.diet_composer.models import ProductItem
 from django.db import models
+from apps.diet_composer.utils import calculate_total_value_meal
 
 
 class Meal(models.Model):
@@ -19,31 +20,23 @@ class Meal(models.Model):
 
     @property
     def total_calories(self):
-        total = 0
-        for ingredient in self.ingredients.all():
-            total += ingredient.calories
-        return round(total, 2)
+        value = calculate_total_value_meal(self.ingredients.all(), "calories")
+        return value
 
     @property
     def total_proteins(self):
-        total = 0
-        for ingredient in self.ingredients.all():
-            total += ingredient.proteins
-        return round(total, 2)
+        value = calculate_total_value_meal(self.ingredients.all(), "proteins")
+        return value
 
     @property
     def total_fats(self):
-        total = 0
-        for ingredient in self.ingredients.all():
-            total += ingredient.fats
-        return round(total, 2)
+        value = calculate_total_value_meal(self.ingredients.all(), "fats")
+        return value
 
     @property
     def total_carbohydrates(self):
-        total = 0
-        for ingredient in self.ingredients.all():
-            total += ingredient.carbohydrates
-        return round(total, 2)
+        value = calculate_total_value_meal(self.ingredients.all(), "carbohydrates")
+        return value
 
 
 

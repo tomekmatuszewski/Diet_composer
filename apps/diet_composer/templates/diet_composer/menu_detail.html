@@ -6,7 +6,7 @@
             {% for meal in object.meals.all %}
                 <div class="meal-title">
                     <h5>{{ meal.name }}</h5>
-                    <a class="btn btn-light" title="Add ingredient" href="{% url 'ingredient-create' object.id meal.id %}">
+                    <a id="add-ing" class="btn btn-light" title="Add ingredient" href="{% url 'ingredient-create' object.id meal.id %}">
                         <i class="fas fa-plus-circle"><span class="ml-2">Add ingredient</span></i>
                     </a>
                 </div>
@@ -32,35 +32,62 @@
                                 <td>{{ ingredient.fats }}</td>
                                 <td>{{ ingredient.carbohydrates }}</td>
                                 <td>
-                                    <a href="{% url 'ingredient-edit' object.pk ingredient.pk %}"
+                                    <a id="edit-ing" href="{% url 'ingredient-edit' object.pk ingredient.pk %}"
                                        class="btn btn-light btn-sm"><i class="fas fa-pen"></i></a>
-                                    <a href="" class="btn btn-light btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                    <form method="POST" action="{% url 'ingredient-delete' object.pk ingredient.pk %}">
+                                        {% csrf_token %}
+                                        <button class="btn btn-light btn-sm" type="submit" value="DELETE">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
+                    <thead>
+                        <tr class="table-active">
+                            <th class="index-table" scope="col">Total for meal</th>
+                            <td class="summary"></td>
+                            <td class="summary">{{ meal.total_calories }}</td>
+                            <td class="summary">{{ meal.total_proteins }}</td>
+                            <td class="summary">{{ meal.total_fats }}</td>
+                            <td class="summary">{{ meal.total_carbohydrates }}</td>
+                            <td class="summary"></td>
+                        </tr>
+                    </thead>
                 </table>
-                <div class="meal-summary">
-                    <p class="ml-3">Calories: {{ meal.total_calories }} kcal</p>
-                    <p class="ml-3">Proteins: {{ meal.total_proteins }} g</p>
-                    <p class="ml-3">Fats: {{ meal.total_fats }} g</p>
-                    <p class="ml-3">Carbohydrates: {{ meal.total_carbohydrates }} g</p>
-                </div>
+
             {% endfor %}
 
-            {% if object.author == user %}
-            <div class="buttons mt-5">
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="">Update</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1 mr-3" href="">Delete</a>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1 mr-3" href="{% url 'meal-create' object.id %}">Add Meal</a>
+
+            <div class="buttons">
+                <a class="btn btn-outline-info mt-1 mb-1 mr-3" href="{% url 'meal-create' object.id %}">Add Meal</a>
             </div>
-            {% endif %}
+
 
         </div>
     </article>
 
-    <p>Total diet calories: {{ object.total_calories }} kcal</p>
-    <p>Total diet proteins: {{ object.total_proteins }} kcal</p>
-    <p>Total diet fats: {{ object.total_fats }} kcal</p>
-    <p>Total diet carbohydrates: {{ object.total_carbohydrates }} kcal</p>
+    <article class="media content-section">
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr class="table-active">
+                    <th class="index-table" scope="col">Total for menu</th>
+                    <td class="summary">Total calories [kcal]</td>
+                    <td class="summary">Total proteins [g]</td>
+                    <td class="summary">Total fats [g]</td>
+                    <td class="summary">Total carbohydrates [g]</td>
+                </tr>
+            </thead>
+            <tbody>
+                <th class="index-table" scope="col"></th>
+                <td class="summary">{{ object.total_calories }}</td>
+                <td class="summary">{{ object.total_proteins }}</td>
+                <td class="summary">{{ object.total_fats }}</td>
+                <td class="summary">{{ object.total_carbohydrates }}</td>
+            </tbody>
+        </table>
+    </article>
+
+
 {% endblock content %}
