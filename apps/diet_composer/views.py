@@ -3,11 +3,12 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, ListView, DetailView
+from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
 from apps.diet_composer.models import DailyMenu, Meal, Product, ProductItem
 from apps.diet_composer.forms import ProductItemForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from apps.diet_composer.utils import check_nutritional_status
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -24,17 +25,37 @@ class ProductItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
     form_class = ProductItemForm
     success_message = "Ingredient added to meal"
 
-    # def form_valid(self, form):
-    #     menu = DailyMenu.objects.get(id=self.kwargs["pk"])
-    #     if menu.meals.count() < menu.number_of_meals:
-    #         name = form.cleaned_data['name']
-    #         meal = Meal(name=name)
-    #         meal.save()
-    #         menu.meals.add(meal)
-    #         messages.success(self.request, message="Succesfully added meal to your Menu")
-    #     else:
-    #         messages.error(self.request, message="Max number of meals achieved")
-    #     return HttpResponseRedirect(reverse_lazy("menu-details", args=[self.kwargs["pk"]]))
+    def form_valid(self, form):
+        menu = DailyMenu.objects.get(id=self.kwargs["menu_id"])
+        meal = Meal.objects.get(id=self.kwargs["meal_id"])
+        if form.is_valid():
+            category = form.cleaned_data["category"]
+            product = form.cleaned_data["product"]
+            weight = form.cleaned_data["weight"]
+            unit = form.cleaned_data["unit"]
+            ingredient = ProductItem(category=category, product=product, weight=weight, unit=unit)
+            if check_nutritional_status(self.request.user, menu, ingredient):
+                ingredient.save()
+                meal.ingredients.add(ingredient)
+                messages.success(self.request, message=f"Succesfully added ingredient to {meal.name}")
+            else:
+                messages.error(self.request, message="The nutritional value of your menu has exceeded your personal limit")
+        return HttpResponseRedirect(reverse_lazy("menu-details", args=[self.kwargs["menu_id"]]))
+
+
+class ProductItemUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+
+    template_name = "diet_composer/productitem_form.html"
+    form_class = ProductItemForm
+    model = ProductItem
+    success_message = "Succesfully edited ingredient"
+
+    def get_success_url(self):
+        return reverse_lazy("menu-details", kwargs={"pk": self.kwargs["menu_id"]})
+
+
+class ProductItemDeleteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    pass
 
 
 def load_products(request):
@@ -81,14 +102,14 @@ class MealCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         menu = DailyMenu.objects.get(id=self.kwargs["pk"])
-        if menu.meals.count() < menu.number_of_meals:
+        if form.is_valid() and menu.meals.count() < menu.number_of_meals:
             name = form.cleaned_data['name']
             meal = Meal(name=name)
             meal.save()
             menu.meals.add(meal)
             messages.success(self.request, message="Succesfully added meal to your Menu")
         else:
-            messages.error(self.request, message="Max number of meals achieved")
+            messages.error(self.request, message=f"Max number of meals achieved for {menu.name}")
         return HttpResponseRedirect(reverse_lazy("menu-details", args=[self.kwargs["pk"]]))
 
 

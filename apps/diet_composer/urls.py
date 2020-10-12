@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import (ProductCreateView, UserMenuListView, MenuCreateView,
-                    ProductItemCreateView, load_products, MenuDetailView,
+                    ProductItemCreateView, ProductItemUpdateView, load_products, MenuDetailView,
                     MealCreateView)
 
 urlpatterns = [
@@ -10,6 +10,8 @@ urlpatterns = [
     path("create-menu/", MenuCreateView.as_view(), name="create-menu"),
     path("menu/<int:pk>", MenuDetailView.as_view(), name="menu-details"),
     path("menu/<int:pk>/new-meal/", MealCreateView.as_view(), name="meal-create"),
-    path("meal/<int:pk>/add-ingredient/", ProductItemCreateView.as_view(), name="ingredient-create"),
+    path("menu/<int:menu_id>/meal/<int:meal_id>/add-ingredient", ProductItemCreateView.as_view(),
+         name="ingredient-create"),
+    path("menu/<slug:menu_id>/ingredient/<int:pk>/edit", ProductItemUpdateView.as_view(), name="ingredient-edit"),
     path("ajax/load-products/", load_products, name='ajax-load-products')
 ]

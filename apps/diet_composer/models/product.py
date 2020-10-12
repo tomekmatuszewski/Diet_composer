@@ -18,9 +18,11 @@ class Product(models.Model):
     fats_per_100 = models.DecimalField(max_digits=6, decimal_places=2)
     carbohydrates_per_100 = models.DecimalField(max_digits=6, decimal_places=2)
     weight_of_pcs = models.DecimalField(null=True, blank=True, max_digits=6, decimal_places=2,
-                                        help_text="weight of an average piece / package")
+                                        help_text="weight of an average piece / package [g]")
 
     def __str__(self):
+        if self.weight_of_pcs:
+            return f"{self.name}, weight of piece/packege {self.weight_of_pcs} g"
         return f"{self.name}"
 
 
@@ -36,7 +38,13 @@ class ProductItem(models.Model):
                                                                            "selected unit - grams or piece/package")
 
     def __str__(self):
-        return f"{self.product.name} item"
+        return f"Ingredient: {self.product.name}, {self.weight_of_pcs} g"
+
+    @property
+    def weight_of_pcs(self) -> float:
+        if self.unit == "g":
+            return self.weight
+        return round(self.product.weight_of_pcs * self.weight, 1)
 
     @property
     def calories(self) -> float:

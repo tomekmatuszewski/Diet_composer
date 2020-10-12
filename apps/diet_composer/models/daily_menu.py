@@ -8,7 +8,7 @@ class DailyMenu(models.Model):
 
     name = models.CharField(max_length=150)
     number_of_meals = models.PositiveSmallIntegerField(validators=[MaxValueValidator(6), MinValueValidator(1)])
-    meals = models.ManyToManyField(Meal, related_name="meals", blank=True)
+    meals = models.ManyToManyField(Meal, related_name="menus", blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_menus")
 
     def __str__(self):
@@ -19,10 +19,31 @@ class DailyMenu(models.Model):
         return range(1, self.number_of_meals+1)
 
     @property
-    def total_calories(self):
+    def total_calories(self) -> float:
         total = 0
         for meal in self.meals.all():
             total += meal.total_calories
+        return total
+
+    @property
+    def total_proteins(self) -> float:
+        total = 0
+        for meal in self.meals.all():
+            total += meal.total_proteins
+        return total
+
+    @property
+    def total_fats(self) -> float:
+        total = 0
+        for meal in self.meals.all():
+            total += meal.total_fats
+        return total
+
+    @property
+    def total_carbohydrates(self) -> float:
+        total = 0
+        for meal in self.meals.all():
+            total += meal.total_carbohydrates
         return total
 
 
