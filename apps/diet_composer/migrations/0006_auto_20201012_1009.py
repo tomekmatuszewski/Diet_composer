@@ -6,23 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('diet_composer', '0005_auto_20201008_1753'),
+        ("diet_composer", "0005_auto_20201008_1753"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='dailymenu',
-            name='meals',
-            field=models.ManyToManyField(blank=True, related_name='menus', to='diet_composer.Meal'),
+            model_name="dailymenu",
+            name="meals",
+            field=models.ManyToManyField(
+                blank=True, related_name="menus", to="diet_composer.Meal"
+            ),
         ),
         migrations.AlterField(
-            model_name='meal',
-            name='ingredients',
-            field=models.ManyToManyField(related_name='meals', to='diet_composer.ProductItem'),
+            model_name="meal",
+            name="ingredients",
+            field=models.ManyToManyField(
+                related_name="meals", to="diet_composer.ProductItem"
+            ),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='weight_of_pcs',
-            field=models.DecimalField(blank=True, decimal_places=2, help_text='weight of an average piece / package [g]', max_digits=6, null=True),
+            model_name="product",
+            name="weight_of_pcs",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=2,
+                help_text="weight of an average piece / package [g]",
+                max_digits=6,
+                null=True,
+            ),
         ),
     ]

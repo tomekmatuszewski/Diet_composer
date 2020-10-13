@@ -6,18 +6,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0003_auto_20201006_1847'),
+        ("users", "0003_auto_20201006_1847"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='profile',
-            name='height',
-            field=models.DecimalField(blank=True, decimal_places=1, help_text='height in centimeters', max_digits=4, null=True),
+            model_name="profile",
+            name="height",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=1,
+                help_text="height in centimeters",
+                max_digits=4,
+                null=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='weight',
-            field=models.DecimalField(blank=True, decimal_places=1, help_text='weight in kilograms', max_digits=4, null=True),
+            model_name="profile",
+            name="weight",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=1,
+                help_text="weight in kilograms",
+                max_digits=4,
+                null=True,
+            ),
         ),
     ]

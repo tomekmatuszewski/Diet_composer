@@ -1,5 +1,7 @@
 from django.contrib import admin
-from apps.diet_composer.models import Product, ProductCategory, ProductItem, Meal, DailyMenu
+
+from apps.diet_composer.models import (DailyMenu, Meal, Product,
+                                       ProductCategory, ProductItem)
 
 admin.site.register(Product)
 admin.site.register(ProductCategory)

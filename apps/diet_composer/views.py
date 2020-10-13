@@ -1,22 +1,65 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
-from apps.diet_composer.models import DailyMenu, Meal, Product, ProductItem
-from apps.diet_composer.forms import ProductItemForm
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
+
+from apps.diet_composer.forms import ProductItemForm, ProductForm
+from apps.diet_composer.models import DailyMenu, Meal, Product, ProductItem
 from apps.diet_composer.utils import check_nutritional_status
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    fields = "__all__"
+    form_class = ProductForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("create-menu")
+        return reverse_lazy("products-list", args=[self.request.user.username])
+
+
+class ProductListView(ListView):
+    model = Product
+    template_name = "diet_composer/product_list.html"
+    context_object_name = "products"
+    paginate_by = 10
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get("username"))
+        return Product.objects.filter(author=user)
+
+
+class ProductUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Product
+    form_class = ProductForm
+
+    def get_success_url(self):
+        return reverse_lazy("products-list", args=[self.request.user.username])
+
+    def get_success_message(self, cleaned_data):
+        return f"Successfully edited product: {cleaned_data['name']}"
+
+
+class ProductDeleteView(
+    LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView
+):
+    model = Product
+
+    def get_success_url(self):
+        return reverse_lazy("products-list", args=[self.request.user.username])
+
+    def test_func(self):
+        product = Product.objects.get(pk=self.kwargs["pk"])
+        if self.request.user == product.author:
+            return True
+        return False
 
 
 class ProductItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -33,14 +76,24 @@ class ProductItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
             product = form.cleaned_data["product"]
             weight = form.cleaned_data["weight"]
             unit = form.cleaned_data["unit"]
-            ingredient = ProductItem(category=category, product=product, weight=weight, unit=unit)
+            ingredient = ProductItem(
+                category=category, product=product, weight=weight, unit=unit
+            )
             if check_nutritional_status(self.request.user, menu, ingredient):
                 ingredient.save()
                 meal.ingredients.add(ingredient)
-                messages.success(self.request, message=f"Successfully added ingredient to {meal.name}")
+                messages.success(
+                    self.request,
+                    message=f"Successfully added ingredient to {meal.name}",
+                )
             else:
-                messages.error(self.request, message="The nutritional value of your menu has exceeded your personal limit")
-        return HttpResponseRedirect(reverse_lazy("menu-details", args=[self.kwargs["menu_id"]]))
+                messages.error(
+                    self.request,
+                    message="The nutritional value of your menu has exceeded your personal limit",
+                )
+        return HttpResponseRedirect(
+            reverse_lazy("menu-details", args=[self.kwargs["menu_id"]])
+        )
 
 
 class ProductItemUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -56,7 +109,9 @@ class ProductItemUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
         return f"Successfully edited ingredient: {cleaned_data['product'].name}"
 
 
-class ProductItemDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+class ProductItemDeleteView(
+    LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView
+):
     model = ProductItem
 
     def get_success_url(self):
@@ -70,9 +125,13 @@ class ProductItemDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMess
 
 
 def load_products(request):
-    category_id = request.GET.get('category')
-    products = Product.objects.filter(category_id=category_id).order_by('name')
-    return render(request, 'diet_composer/product_dropdown_list_options.html', {'products': products})
+    category_id = request.GET.get("category")
+    products = Product.objects.filter(category_id=category_id).order_by("name")
+    return render(
+        request,
+        "diet_composer/product_dropdown_list_options.html",
+        {"products": products},
+    )
 
 
 class UserMenuListView(ListView):
@@ -97,7 +156,9 @@ class MenuCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("user-menus", kwargs={"username": self.object.author.username})
+        return reverse_lazy(
+            "user-menus", kwargs={"username": self.object.author.username}
+        )
 
 
 class MenuDetailView(DetailView):
@@ -115,15 +176,21 @@ class MenuUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return f"Successfully edited menu: {cleaned_data['name']}"
 
     def get_success_url(self):
-        return reverse_lazy("user-menus", kwargs={"username": self.object.author.username})
+        return reverse_lazy(
+            "user-menus", kwargs={"username": self.object.author.username}
+        )
 
 
-class MenuDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+class MenuDeleteView(
+    LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView
+):
     model = DailyMenu
     template_name = "diet_composer/menu_confirm_delete.html"
 
     def get_success_url(self):
-        return reverse_lazy("user-menus", kwargs={"username": self.object.author.username})
+        return reverse_lazy(
+            "user-menus", kwargs={"username": self.object.author.username}
+        )
 
     def test_func(self):
         menu = self.get_object()
@@ -140,20 +207,17 @@ class MealCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         menu = DailyMenu.objects.get(id=self.kwargs["pk"])
         if form.is_valid() and menu.meals.count() < menu.number_of_meals:
-            name = form.cleaned_data['name']
+            name = form.cleaned_data["name"]
             meal = Meal(name=name)
             meal.save()
             menu.meals.add(meal)
-            messages.success(self.request, message="Succesfully added meal to your Menu")
+            messages.success(
+                self.request, message="Succesfully added meal to your Menu"
+            )
         else:
-            messages.error(self.request, message=f"Max number of meals achieved for {menu.name}")
-        return HttpResponseRedirect(reverse_lazy("menu-details", args=[self.kwargs["pk"]]))
-
-
-
-
-
-
-
-
-
+            messages.error(
+                self.request, message=f"Max number of meals achieved for {menu.name}"
+            )
+        return HttpResponseRedirect(
+            reverse_lazy("menu-details", args=[self.kwargs["pk"]])
+        )

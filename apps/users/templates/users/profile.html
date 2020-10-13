@@ -26,12 +26,33 @@
     <button id="calculator" class="btn btn-outline-info" onclick="display_params();">Calculate your parameters</button>
 
     <div id="params" class="content-section">
-        <h5>Calculated user parameters:</h5>
-        <p>BMR: {{ user.profile.bmr }}</p>
-        <p>Your daily caloric demand (CMR): {{ user.profile.cmr }} kcal</p>
-        <p>Recommended daily amount of protein: {{ user.profile.daily_proteins }} g</p>
-        <p>Recommended daily amount of fats: {{ user.profile.daily_fats }} g</p>
-        <p>Recommended daily amount of carbohydrates: {{ user.profile.daily_carb }} g</p>
+         <div class="personal-parameters">
+             <h5>Calculated user parameters:</h5>
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th scope="row">Basal metabolic rate (BMR)</th>
+                        <td>{{ user.profile.bmr }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Daily caloric demand (CMR)</th>
+                        <td>{{ user.profile.cmr }} kcal</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Daily proteins demand</th>
+                        <td>{{ user.profile.daily_proteins }} g</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Daily fats demand</th>
+                        <td>{{ user.profile.daily_fats }} g</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Daily carbohydrates demand</th>
+                        <td>{{ user.profile.daily_carb }} g</td>
+                    </tr>
+                </thead>
+                </table>
+         </div>
     </div>
 
 {% endblock content %}

@@ -1,5 +1,5 @@
-from PIL import Image
 from django.core.exceptions import ValidationError
+from PIL import Image
 
 
 def change_pic_size(path, size1, size2) -> None:
@@ -12,14 +12,16 @@ def change_pic_size(path, size1, size2) -> None:
 
 def validate_age(value):
     if value > 110:
-        raise ValidationError(f'Enter correct age value')
+        raise ValidationError(f"Enter correct age value")
 
 
 def calculate_bmr(weight, height, age, gender) -> float:
     if gender == "Male":
         return round((9.99 * float(weight) + 6.25 * float(height) - 4.92 * age + 5), 2)
     elif gender == "Female":
-        return round((9.99 * float(weight) + 6.25 * float(height) - 4.92 * age - 161), 2)
+        return round(
+            (9.99 * float(weight) + 6.25 * float(height) - 4.92 * age - 161), 2
+        )
 
 
 def calculate_cmr(bmr, activity) -> float:

@@ -6,23 +6,32 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0002_auto_20201005_1937'),
+        ("users", "0002_auto_20201005_1937"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='profile',
-            name='gender',
-            field=models.CharField(blank=True, choices=[('Male', 'Male'), ('Female', 'Female')], max_length=10, null=True),
+            model_name="profile",
+            name="gender",
+            field=models.CharField(
+                blank=True,
+                choices=[("Male", "Male"), ("Female", "Female")],
+                max_length=10,
+                null=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='height',
-            field=models.FloatField(blank=True, help_text='height in centimeters', null=True),
+            model_name="profile",
+            name="height",
+            field=models.FloatField(
+                blank=True, help_text="height in centimeters", null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='weight',
-            field=models.FloatField(blank=True, help_text='weight in kilograms', null=True),
+            model_name="profile",
+            name="weight",
+            field=models.FloatField(
+                blank=True, help_text="weight in kilograms", null=True
+            ),
         ),
     ]
