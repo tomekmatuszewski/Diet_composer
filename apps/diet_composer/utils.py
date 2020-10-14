@@ -36,9 +36,20 @@ def calculate_total_value_menu(lst: list, flag: str) -> float:
     return round(total, 2)
 
 
-def calculate_total_value_meal(lst: list, flag: str) -> float:
+def calculate_total_value_meal(
+    lst_ingredients: list, lst_recipes: list, flag: str
+) -> float:
     total = 0
-    for item in lst:
+    for item in lst_ingredients:
+        if flag == "calories":
+            total += item.calories
+        elif flag == "proteins":
+            total += item.proteins
+        elif flag == "fats":
+            total += item.fats
+        else:
+            total += item.carbohydrates
+    for item in lst_recipes:
         if flag == "calories":
             total += item.calories
         elif flag == "proteins":
@@ -48,3 +59,7 @@ def calculate_total_value_meal(lst: list, flag: str) -> float:
         else:
             total += item.carbohydrates
     return round(total, 2)
+
+
+def calculate_recipe_nutri(nutri_value, piece) -> float:
+    return round(float(nutri_value) * float(piece), 2)

@@ -8,16 +8,20 @@ from apps.users.utils import change_pic_size
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, null=False)
+    name = models.CharField(max_length=50, null=False, unique=True)
 
     def __str__(self):
         return self.name
 
 
 class Recipe(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
     image = models.ImageField(upload_to="recipes_pics", default="default_recipe.png")
     description = models.TextField()
+    total_calories = models.DecimalField(max_digits=6, decimal_places=2)
+    total_proteins = models.DecimalField(max_digits=6, decimal_places=2)
+    total_fats = models.DecimalField(max_digits=6, decimal_places=2)
+    total_carbohydrates = models.DecimalField(max_digits=6, decimal_places=2)
     preparation_time = models.CharField(
         help_text="Preparation time in minutes", max_length=10
     )
@@ -35,8 +39,8 @@ class Recipe(models.Model):
     def total_likes(self):
         return self.likes.count()
 
-    def __str__(self) -> str:
-        return f"No {self.id} title: {self.title} author: {self.author.username}"
+    def __str__(self):
+        return f"{self.title}"
 
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)

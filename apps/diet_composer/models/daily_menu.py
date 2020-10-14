@@ -11,7 +11,9 @@ class DailyMenu(models.Model):
     number_of_meals = models.PositiveSmallIntegerField(
         validators=[MaxValueValidator(6), MinValueValidator(1)]
     )
-    meals = models.ManyToManyField('diet_composer.Meal', related_name="menus", blank=True)
+    meals = models.ManyToManyField(
+        "diet_composer.Meal", related_name="menus", blank=True
+    )
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="user_menus"
     )
@@ -38,3 +40,12 @@ class DailyMenu(models.Model):
     def total_carbohydrates(self) -> float:
         value = calculate_total_value_menu(self.meals.all(), "carbohydrates")
         return value
+
+    def delete(self, using=None, keep_parents=False):
+        for meal in self.meals.all():
+            for product in meal.ingredients.all():
+                product.delete()
+            for recipe in meal.recipes.all():
+                recipe.delete()
+            meal.delete()
+        super().delete()

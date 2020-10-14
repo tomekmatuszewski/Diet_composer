@@ -38,6 +38,10 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         "ingredients",
         "image",
         "tags",
+        "total_calories",
+        "total_proteins",
+        "total_fats",
+        "total_carbohydrates",
     ]
 
     def form_valid(self, form):
@@ -55,6 +59,10 @@ class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         "ingredients",
         "image",
         "tags",
+        "total_calories",
+        "total_proteins",
+        "total_fats",
+        "total_carbohydrates",
     ]
 
     def form_valid(self, form):

@@ -8,9 +8,11 @@ from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
-from apps.diet_composer.forms import ProductItemForm, ProductForm
-from apps.diet_composer.models import DailyMenu, Meal, Product, ProductItem
+from apps.diet_composer.forms import ProductForm, ProductItemForm
+from apps.diet_composer.models import (DailyMenu, Meal, Product, ProductItem,
+                                       RecipeItem)
 from apps.diet_composer.utils import check_nutritional_status
+from apps.recipes.models import Recipe
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -221,3 +223,73 @@ class MealCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return HttpResponseRedirect(
             reverse_lazy("menu-details", args=[self.kwargs["pk"]])
         )
+
+
+class RecipeItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+
+    model = RecipeItem
+    fields = "__all__"
+    success_message = "Recipe added to meal"
+
+    def form_valid(self, form):
+        menu = DailyMenu.objects.get(id=self.kwargs["menu_id"])
+        meal = Meal.objects.get(id=self.kwargs["meal_id"])
+        if form.is_valid():
+            category = form.cleaned_data["recipe_category"]
+            recipe = form.cleaned_data["recipe"]
+            piece = form.cleaned_data["piece"]
+            recipeitem = RecipeItem(
+                recipe_category=category, recipe=recipe, piece=piece
+            )
+            if check_nutritional_status(self.request.user, menu, recipeitem):
+                recipeitem.save()
+                meal.recipes.add(recipeitem)
+                messages.success(
+                    self.request,
+                    message=f"Successfully added recipe to {meal.name}",
+                )
+            else:
+                messages.error(
+                    self.request,
+                    message="The nutritional value of your menu has exceeded your personal limit",
+                )
+        return HttpResponseRedirect(
+            reverse_lazy("menu-details", args=[self.kwargs["menu_id"]])
+        )
+
+
+class RecipeItemUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+
+    model = RecipeItem
+    fields = "__all__"
+
+    def get_success_url(self):
+        return reverse_lazy("menu-details", kwargs={"pk": self.kwargs["menu_id"]})
+
+    def get_success_message(self, cleaned_data):
+        return f"Successfully edited recipe: {cleaned_data['recipe'].title}"
+
+
+class RecipeItemDeleteView(
+    LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView
+):
+    model = RecipeItem
+
+    def get_success_url(self):
+        return reverse_lazy("menu-details", kwargs={"pk": self.kwargs["menu_id"]})
+
+    def test_func(self):
+        menu = DailyMenu.objects.get(id=self.kwargs["menu_id"])
+        if self.request.user == menu.author:
+            return True
+        return False
+
+
+def load_recipes(request):
+    category_id = request.GET.get("recipe_category")
+    recipes = Recipe.objects.filter(category_id=category_id).order_by("title")
+    return render(
+        request,
+        "diet_composer/recipe_dropdown_list_options.html",
+        {"recipes": recipes},
+    )

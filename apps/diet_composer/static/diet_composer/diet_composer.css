@@ -66,7 +66,7 @@
     font-weight: bold;
 }
 
-#edit-ing
+#edit-ing, #edit-recipe
 {
     border: none;
     float: left;
@@ -118,6 +118,11 @@
     margin-top: 30px;
 }
 
+.personal-parameters .personal-parameters-title
+{
+    margin-bottom: 20px;
+}
+
 .personal-parameters
 {
     margin-top: 40px;
@@ -148,4 +153,14 @@
 {
     background-color: #d2caca !important;
 }
+
+#add-recipe
+{
+    border: none;
+    float: left;
+    margin-right: 5px;
+    display: block;
+}
+
+
 

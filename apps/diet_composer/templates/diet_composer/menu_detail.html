@@ -6,7 +6,11 @@
             {% for meal in object.meals.all %}
                 <div class="meal-title">
                     <h5>{{ meal.name }}</h5>
-                    <a id="add-ing" class="btn btn-light" title="Add ingredient" href="{% url 'ingredient-create' object.id meal.id %}">
+                    <a id="add-recipe" class="btn btn-light" title="Add recipe" href="{% url 'recipeitem-create' object.id meal.id %}">
+                        <i class="fas fa-plus-circle"><span class="ml-2">Add recipe</span></i>
+                    </a>
+                    <a id="add-ing" class="btn btn-light" title="Add ingredient"
+                       href="{% url 'ingredient-create' object.id meal.id %}">
                         <i class="fas fa-plus-circle"><span class="ml-2">Add ingredient</span></i>
                     </a>
                 </div>
@@ -36,6 +40,26 @@
                                         <a id="edit-ing" href="{% url 'ingredient-edit' object.pk ingredient.pk %}"
                                            class="btn btn-light btn-sm"><i class="fas fa-pen"></i></a>
                                         <form method="POST" action="{% url 'ingredient-delete' object.pk ingredient.pk %}">
+                                            {% csrf_token %}
+                                            <button class="btn btn-light btn-sm" type="submit" value="DELETE">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            {% for recipe in meal.recipes.all %}
+                                <tr>
+                                    <th scope="row" class="index-table">{{ recipe.recipe.title }}</th>
+                                    <td>{{ recipe.piece }} pcs</td>
+                                    <td>{{ recipe.calories }}</td>
+                                    <td>{{ recipe.proteins }}</td>
+                                    <td>{{ recipe.fats }}</td>
+                                    <td>{{ recipe.carbohydrates }}</td>
+                                    <td>
+                                        <a id="edit-recipe" href="{% url 'recipeitem-edit' object.pk recipe.pk %}"
+                                           class="btn btn-light btn-sm"><i class="fas fa-pen"></i></a>
+                                        <form method="POST" action="{% url 'recipeitem-delete' object.pk recipe.pk %}">
                                             {% csrf_token %}
                                             <button class="btn btn-light btn-sm" type="submit" value="DELETE">
                                                 <i class="fas fa-trash-alt"></i>

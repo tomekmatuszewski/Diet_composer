@@ -39,6 +39,36 @@
     margin-top: 40px;
 }
 
+.content-section .time-prep
+{
+    margin-top: 30px;
+}
+
+
+.content-section, .content-section h6
+{
+    color: #4D4545;
+}
+
+.nutri-content table
+{
+    margin-top: 22px;
+    width: 55%;
+    text-align: center;
+    color: #4D4545;
+}
+
+.nutri-content .nutri-names
+{
+    font-weight: bold;
+}
+
+.article-content
+{
+    text-justify: auto;
+}
+
+
 
 
 

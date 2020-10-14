@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 from apps.diet_composer.utils import calculate_params
 
@@ -11,7 +11,7 @@ class ProductCategory(models.Model):
         return f"{self.name}"
 
     class Meta:
-        ordering = ('name',)
+        ordering = ("name",)
 
 
 class Product(models.Model):
@@ -34,7 +34,7 @@ class Product(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="products")
 
     class Meta:
-        ordering = ('category', 'name')
+        ordering = ("category", "name")
 
     def __str__(self):
         if self.weight_of_pcs:
