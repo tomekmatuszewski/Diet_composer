@@ -14,20 +14,26 @@ class TestRecipe:
             )
             category = Category.objects.create(name="cat1")
             recipe = Recipe.objects.create(
+                id=1,
                 title="Test recipe",
                 description="Test description",
                 author=user,
                 preparation_time="10 min",
                 ingredients="test ingredients",
                 category=category,
+                total_calories=100,
+                total_proteins=50,
+                total_fats=50,
+                total_carbohydrates=50
             )
         yield recipe
         with django_db_blocker.unblock():
             recipe.delete()
+            category.delete()
             user.delete()
 
     def test_blog_obj_name(self, recipe):
-        assert repr(recipe) == "Test recipe test_user"
+        assert str(recipe) == "Test recipe"
 
     def test_recipe(self, recipe):
         assert isinstance(recipe, Recipe)

@@ -54,20 +54,25 @@ class Profile(models.Model):
 
     @property
     def bmr(self):
-        return calculate_bmr(self.weight, self.height, self.age, self.gender)
+        if self.weight and self.height and self.age and self.gender:
+            return calculate_bmr(self.weight, self.height, self.age, self.gender)
 
     @property
     def cmr(self):
-        return calculate_cmr(self.bmr, self.activity.factor)
+        if self.activity:
+            return calculate_cmr(self.bmr, self.activity.factor)
 
     @property
     def daily_proteins(self):
-        return calc_daily_proteins(self.cmr)
+        if self.cmr:
+            return calc_daily_proteins(self.cmr)
 
     @property
     def daily_fats(self):
-        return calc_daily_fats(self.cmr)
+        if self.cmr:
+            return calc_daily_fats(self.cmr)
 
     @property
     def daily_carb(self):
-        return calc_daily_carb(self.cmr)
+        if self.cmr:
+            return calc_daily_carb(self.cmr)

@@ -34,6 +34,8 @@
     margin-left: 0;
 }
 
+/*stylin meal detail table*/
+
 #menu .meal-table
 {
     margin-bottom: 50px;
@@ -66,6 +68,27 @@
     font-weight: bold;
 }
 
+#division
+{
+    height: 20px;
+}
+
+/*button add recipe and ingredient*/
+#add-recipe
+{
+    border: none;
+    float: left;
+    margin-right: 5px;
+    display: block;
+}
+
+#add-ing
+{
+    border: none;
+}
+
+/*button to edit / delete ingredient/ recipe*/
+
 #edit-ing, #edit-recipe
 {
     border: none;
@@ -86,6 +109,8 @@
     background-color: #d2caca !important;
 }
 
+/*/main buttons/*/
+
 #menu .buttons a, #menu a, .btn.btn-outline-info
 {
     color: #4D4545 !important;
@@ -97,26 +122,29 @@
     background-color: #A59E9D !important;
 }
 
+/*creted menus header*/
+
 .menus-list-title
 {
     color: #4D4545;
     margin-left: 10px;
 }
 
-#add-ing
-{
-    border: none;
-}
-
+/*button details/delete update menu*/
 .buttons-group
 {
     margin-top: 40px;
 }
 
-.menu-summary
+/*menu summary at the bottom*/
+
+.menu-summary table
 {
-    margin-top: 30px;
+    margin-top: 10px;
+    color: #4D4545;
 }
+
+/*user personal params part*/
 
 .personal-parameters .personal-parameters-title
 {
@@ -132,6 +160,8 @@
 {
     color: #4D4545;
 }
+
+/*products created by user - list*/
 
 #user-products table
 {
@@ -154,13 +184,8 @@
     background-color: #d2caca !important;
 }
 
-#add-recipe
-{
-    border: none;
-    float: left;
-    margin-right: 5px;
-    display: block;
-}
+
+
 
 
 

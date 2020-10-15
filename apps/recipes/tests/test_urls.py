@@ -29,6 +29,10 @@ class TestUrls:
                 preparation_time="10 min",
                 ingredients="test ingredients",
                 category=category,
+                total_calories=100,
+                total_proteins=100,
+                total_carbohydrates=100,
+                total_fats=100
             )
             yield recipe
         with django_db_blocker.unblock():

@@ -7,7 +7,7 @@ class RecipeItem(models.Model):
 
     recipe_category = models.ForeignKey("recipes.Category", on_delete=models.CASCADE)
     recipe = models.ForeignKey("recipes.Recipe", on_delete=models.CASCADE)
-    piece = models.DecimalField(max_digits=3, decimal_places=1, max_length=150)
+    piece = models.DecimalField(max_digits=4, decimal_places=2, max_length=150)
 
     def __str__(self):
         return f"{self.recipe.title} item"

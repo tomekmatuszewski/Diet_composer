@@ -35,10 +35,15 @@ class TestRecipeView:
                 preparation_time="10min",
                 ingredients="test ingredients",
                 category=category,
+                total_calories=100,
+                total_proteins=100,
+                total_fats=50,
+                total_carbohydrates=50
             )
         yield recipe
         with django_db_blocker.unblock():
             recipe.delete()
+            category.delete()
 
     def test_recipe_view(self, client, recipe, user):
         response = client.get(reverse("diet_composer-recipes"))
@@ -62,6 +67,11 @@ class TestRecipeView:
                 "preparation_time": "20 min",
                 "description": "Test description 2",
                 "ingredients": "test ingredients",
+                "total_calories": 100,
+                "total_proteins": 100,
+                "total_fats": 50,
+                "total_carbohydrates": 50,
+                "tags": "tag"
             },
         )
         assert response.status_code == 302
@@ -86,6 +96,11 @@ class TestRecipeView:
                 "preparation_time": "40 min",
                 "description": "Test description changed",
                 "ingredients": "test ingredients changed",
+                "total_calories": 100,
+                "total_proteins": 100,
+                "total_fats": 50,
+                "tags": "tag",
+                "total_carbohydrates": 50,
                 "image": SimpleUploadedFile(
                     name="joker.jpg",
                     content=open(image_path, "rb").read(),
@@ -131,7 +146,7 @@ class TestLikeView:
                 username="test_user", email="test@demo.pl", password="test12345"
             )
             user.save()
-            category = Category.objects.create(name="cat1")
+            category = Category.objects.create(name="cat2")
             recipe = Recipe.objects.create(
                 title="Test recipe",
                 description="Test description",
@@ -139,6 +154,10 @@ class TestLikeView:
                 preparation_time="10min",
                 ingredients="test ingredients",
                 category=category,
+                total_calories=100,
+                total_proteins=100,
+                total_fats=50,
+                total_carbohydrates=50
             )
             recipe.save()
         yield recipe

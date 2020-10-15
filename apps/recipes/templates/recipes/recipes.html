@@ -14,9 +14,8 @@
                     {{ recipe.description|truncatewords:80 }}
                 </p>
                 <div class="read_more">
-                    <a href="{% url 'recipe-detail' recipe.id %}">Read more</a>
+                    <a href="{% url 'recipe-detail' recipe.pk %}">Read more</a>
                     <i class="far fa-thumbs-up ml-3"></i>  <span>{{ recipe.likes.count }}</span>
-    <!--                <i class="far fa-comment ml-3"></i> <span>{{ recipe.comments.count }}</span>-->
                 </div>
             </div>
         </article>

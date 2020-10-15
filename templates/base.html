@@ -146,37 +146,43 @@
                                 <li id="current-date" class="list-group-item list-group-item-light">Current date</li>
                                 <li class="list-group-item list-group-item-light">
                                     <p>Latest post:</p>
-                                    <a href="{% url 'post-detail' all_posts.last.id %}">
-                                        <p>{{ all_posts.last.title }}</p>
-                                    </a>
-                                    <small>Author: </small>
-                                    <p>{{ all_posts.last.author }}</p>
+                                    {% if all_posts %}
+                                        <a href="{% url 'post-detail' all_posts.last.id %}">
+                                            <p>{{ all_posts.last.title }}</p>
+                                        </a>
+                                        <small>Author: </small>
+                                        <p>{{ all_posts.last.author }}</p>
+                                    {% endif %}
                                 </li>
                                 <li class="list-group-item list-group-item-light">
                                     <p>Latest recipe:</p>
-                                    <a href="{% url 'recipe-detail' all_recipes.last.id %}">
-                                        <p>{{ all_recipes.last.title }}</p>
-                                    </a>
-                                    <small>Author: </small>
-                                    <p>{{ all_recipes.last.author }}</p>
+                                    {% if all_recipes %}
+                                        <a href="{% url 'recipe-detail' all_recipes.last.id %}">
+                                            <p>{{ all_recipes.last.title }}</p>
+                                        </a>
+                                        <small>Author: </small>
+                                        <p>{{ all_recipes.last.author }}</p>
+                                    {% endif %}
                                 </li>
                                 <li class="list-group-item list-group-item-light">
                                     <p>Tags: </p>
-                                    {% for tag in common_tags %}
-                                        <a class="btn btn-light" type="button" href="#">
-                                            <span>#{{ tag }}</span>
-                                        </a>
-                                    {% endfor %}
+                                    {% if common_tags %}
+                                        {% for tag in common_tags %}
+                                            <a class="btn btn-light" type="button" href="#">
+                                                <span>#{{ tag }}</span>
+                                            </a>
+                                        {% endfor %}
+                                    {% endif %}
                                 </li>
                                 <li class="list-group-item list-group-item-light">
                                     <p>Photos:</p>
-
-                                    {% for recipe in all_recipes %}
-                                        <a href="{% url 'recipe-detail' recipe.id %}">
-                                            <img class="img-thumbnail mt-4" src="{{ recipe.image.url }}"/>
-                                        </a>
-                                    {% endfor %}
-
+                                    {% if all_recipes %}
+                                        {% for recipe in all_recipes %}
+                                            <a href="{% url 'recipe-detail' recipe.id %}">
+                                                <img class="img-thumbnail mt-4" src="{{ recipe.image.url }}"/>
+                                            </a>
+                                        {% endfor %}
+                                    {% endif %}
                                 </li>
                               </ul>
                         </div>

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from apps.diet_composer.utils import calculate_params
+from apps.diet_composer.utils import calculate_params, calculate_weight
 
 
 class ProductCategory(models.Model):
@@ -68,9 +68,8 @@ class ProductItem(models.Model):
 
     @property
     def weight_of_pcs(self) -> float:
-        if self.unit == "g":
-            return self.weight
-        return round(self.product.weight_of_pcs * self.weight, 1)
+        weight = calculate_weight(self.unit, self.weight, self.product.weight_of_pcs)
+        return weight
 
     @property
     def calories(self) -> float:

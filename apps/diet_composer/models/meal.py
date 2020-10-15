@@ -12,7 +12,7 @@ class Meal(models.Model):
         post_workout = "Post-workout meal"
         supper = "Supper"
 
-    name = models.CharField(choices=Name.choices, max_length=50, null=True, blank=True)
+    name = models.CharField(choices=Name.choices, max_length=50)
     ingredients = models.ManyToManyField(
         "diet_composer.ProductItem", related_name="meals"
     )
@@ -22,28 +22,28 @@ class Meal(models.Model):
         return f"{self.name}"
 
     @property
-    def total_calories(self):
+    def total_calories(self) -> float:
         value = calculate_total_value_meal(
             self.ingredients.all(), self.recipes.all(), "calories"
         )
         return value
 
     @property
-    def total_proteins(self):
+    def total_proteins(self) -> float:
         value = calculate_total_value_meal(
             self.ingredients.all(), self.recipes.all(), "proteins"
         )
         return value
 
     @property
-    def total_fats(self):
+    def total_fats(self) -> float:
         value = calculate_total_value_meal(
             self.ingredients.all(), self.recipes.all(), "fats"
         )
         return value
 
     @property
-    def total_carbohydrates(self):
+    def total_carbohydrates(self) -> float:
         value = calculate_total_value_meal(
             self.ingredients.all(), self.recipes.all(), "carbohydrates"
         )

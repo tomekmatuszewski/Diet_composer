@@ -21,7 +21,7 @@ class TestPost:
             user.delete()
 
     def test_blog_obj_name(self, post):
-        assert repr(post) == "Post title: Test post"
+        assert str(post) == "Post 1, title: Test post"
 
     def test_post(self, post):
         assert isinstance(post, Post)
@@ -52,7 +52,7 @@ class TestComment:
             user.delete()
 
     def test_blog_obj_name(self, comment):
-        assert repr(comment) == "Test content"
+        assert str(comment) == "Comment 1 to post Test post"
 
     def test_post(self, comment):
         assert isinstance(comment, Comment)

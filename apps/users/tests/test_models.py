@@ -18,5 +18,5 @@ class TestModels:
 
     def test_user_profile(self, user):
         assert user.profile
-        assert repr(user.profile) == "test_user Profile"
+        assert str(user.profile) == "test_user profile"
         assert user.profile.image.url == "/media/default.jpg"
