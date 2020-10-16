@@ -2,13 +2,15 @@ from django.contrib.auth.models import User
 from typing import TypeVar, List
 from decimal import Decimal
 
-DailyMenu = TypeVar('DailyMenu')
-ProductItem = TypeVar('ProductItem')
-RecipeItem = TypeVar('RecipeItem')
-Meal = TypeVar('Meal')
+DailyMenu = TypeVar("DailyMenu")
+ProductItem = TypeVar("ProductItem")
+RecipeItem = TypeVar("RecipeItem")
+Meal = TypeVar("Meal")
 
 
-def calculate_params(unit: str, value_to_calculate: Decimal, weight: Decimal, weight_in_psc: Decimal) -> float:
+def calculate_params(
+    unit: str, value_to_calculate: Decimal, weight: Decimal, weight_in_psc: Decimal
+) -> float:
     if unit == "g":
         return round(float(value_to_calculate) * float(weight) / 100, 2)
     return round(
@@ -16,8 +18,10 @@ def calculate_params(unit: str, value_to_calculate: Decimal, weight: Decimal, we
     )
 
 
-def check_nutritional_status(user: User, menu: DailyMenu, ingredient: ProductItem) -> bool:
-    """"
+def check_nutritional_status(
+    user: User, menu: DailyMenu, ingredient: ProductItem
+) -> bool:
+    """ "
     checking personal parameters of user vs diet values
     """
     calories = menu.total_calories + ingredient.calories

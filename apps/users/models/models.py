@@ -1,9 +1,15 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from apps.users.utils import (calc_daily_carb, calc_daily_fats,
-                              calc_daily_proteins, calculate_bmr,
-                              calculate_cmr, change_pic_size, validate_age)
+from apps.users.utils import (
+    calc_daily_carb,
+    calc_daily_fats,
+    calc_daily_proteins,
+    calculate_bmr,
+    calculate_cmr,
+    change_pic_size,
+    validate_age,
+)
 
 
 class UserActivity(models.Model):

@@ -5,12 +5,16 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  UpdateView)
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from apps.diet_composer.forms import ProductForm, ProductItemForm
-from apps.diet_composer.models import (DailyMenu, Meal, Product, ProductItem,
-                                       RecipeItem)
+from apps.diet_composer.models import DailyMenu, Meal, Product, ProductItem, RecipeItem
 from apps.diet_composer.utils import check_nutritional_status
 from apps.recipes.models import Recipe
 

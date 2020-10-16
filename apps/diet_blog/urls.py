@@ -1,8 +1,17 @@
 from django.urls import path
 
-from .views import (CommentCreateView, CommentDeleteView, CommentUpdateView,
-                    LikeView, PostCreateView, PostDeleteView, PostDetailView,
-                    PostListView, PostUpdateView, UserPostListView)
+from .views import (
+    CommentCreateView,
+    CommentDeleteView,
+    CommentUpdateView,
+    LikeView,
+    PostCreateView,
+    PostDeleteView,
+    PostDetailView,
+    PostListView,
+    PostUpdateView,
+    UserPostListView,
+)
 
 urlpatterns = [
     path("blog/", PostListView.as_view(), name="diet_composer-blog"),

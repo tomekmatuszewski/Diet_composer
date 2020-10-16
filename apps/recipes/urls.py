@@ -1,7 +1,13 @@
 from django.urls import path
 
-from .views import (LikeView, RecipeCreateView, RecipeDeleteView,
-                    RecipeDetailView, RecipesListView, RecipeUpdateView)
+from .views import (
+    LikeView,
+    RecipeCreateView,
+    RecipeDeleteView,
+    RecipeDetailView,
+    RecipesListView,
+    RecipeUpdateView,
+)
 
 urlpatterns = [
     path("recipes/", RecipesListView.as_view(), name="diet_composer-recipes"),

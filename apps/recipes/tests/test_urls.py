@@ -3,9 +3,14 @@ from django.contrib.auth.models import User
 from django.urls import resolve, reverse
 
 from apps.recipes.models import Category, Recipe
-from apps.recipes.views import (LikeView, RecipeCreateView, RecipeDeleteView,
-                                RecipeDetailView, RecipesListView,
-                                RecipeUpdateView)
+from apps.recipes.views import (
+    LikeView,
+    RecipeCreateView,
+    RecipeDeleteView,
+    RecipeDetailView,
+    RecipesListView,
+    RecipeUpdateView,
+)
 
 
 @pytest.mark.django_db()
@@ -32,7 +37,7 @@ class TestUrls:
                 total_calories=100,
                 total_proteins=100,
                 total_carbohydrates=100,
-                total_fats=100
+                total_fats=100,
             )
             yield recipe
         with django_db_blocker.unblock():

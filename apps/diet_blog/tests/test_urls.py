@@ -3,10 +3,18 @@ from django.contrib.auth.models import User
 from django.urls import resolve, reverse
 
 from apps.diet_blog.models import Comment, Post
-from apps.diet_blog.views import (CommentCreateView, CommentDeleteView,
-                                  CommentUpdateView, LikeView, PostCreateView,
-                                  PostDeleteView, PostDetailView, PostListView,
-                                  PostUpdateView, UserPostListView)
+from apps.diet_blog.views import (
+    CommentCreateView,
+    CommentDeleteView,
+    CommentUpdateView,
+    LikeView,
+    PostCreateView,
+    PostDeleteView,
+    PostDetailView,
+    PostListView,
+    PostUpdateView,
+    UserPostListView,
+)
 
 
 @pytest.mark.django_db()

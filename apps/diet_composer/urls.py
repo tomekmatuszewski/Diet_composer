@@ -1,12 +1,25 @@
 from django.urls import path
 
-from .views import (MealCreateView, MenuCreateView, MenuDeleteView,
-                    MenuDetailView, MenuUpdateView, ProductCreateView,
-                    ProductDeleteView, ProductItemCreateView,
-                    ProductItemDeleteView, ProductItemUpdateView,
-                    ProductListView, ProductUpdateView, RecipeItemCreateView,
-                    RecipeItemDeleteView, RecipeItemUpdateView,
-                    UserMenuListView, load_products, load_recipes)
+from .views import (
+    MealCreateView,
+    MenuCreateView,
+    MenuDeleteView,
+    MenuDetailView,
+    MenuUpdateView,
+    ProductCreateView,
+    ProductDeleteView,
+    ProductItemCreateView,
+    ProductItemDeleteView,
+    ProductItemUpdateView,
+    ProductListView,
+    ProductUpdateView,
+    RecipeItemCreateView,
+    RecipeItemDeleteView,
+    RecipeItemUpdateView,
+    UserMenuListView,
+    load_products,
+    load_recipes,
+)
 
 urlpatterns = [
     path("menus/user/<str:username>", UserMenuListView.as_view(), name="user-menus"),

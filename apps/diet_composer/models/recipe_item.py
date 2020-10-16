@@ -6,7 +6,9 @@ from apps.diet_composer.utils import calculate_recipe_nutri
 class RecipeItem(models.Model):
 
     recipe_category = models.ForeignKey("recipes.Category", on_delete=models.CASCADE)
-    recipe = models.ForeignKey("recipes.Recipe", on_delete=models.CASCADE)
+    recipe = models.ForeignKey(
+        "recipes.Recipe", on_delete=models.CASCADE, related_name="recipe_items"
+    )
     piece = models.DecimalField(max_digits=4, decimal_places=2, max_length=150)
 
     def __str__(self):

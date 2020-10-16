@@ -13,6 +13,7 @@ def change_pic_size(path, size1, size2) -> None:
 def validate_age(value):
     if value > 110:
         raise ValidationError(f"Enter correct age value")
+    return True
 
 
 def calculate_bmr(weight, height, age, gender) -> float:

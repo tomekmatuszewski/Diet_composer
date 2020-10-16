@@ -6,18 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('diet_composer', '0010_auto_20201014_2132'),
+        ("diet_composer", "0010_auto_20201014_2132"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='meal',
-            name='name',
-            field=models.CharField(choices=[('Breakfast', 'Breakfast'), ('Lunch', 'Lunch'), ('Dinner', 'Dinner'), ('Afternoon snack', 'Snack'), ('Post-workout meal', 'Post Workout'), ('Supper', 'Supper')], max_length=50),
+            model_name="meal",
+            name="name",
+            field=models.CharField(
+                choices=[
+                    ("Breakfast", "Breakfast"),
+                    ("Lunch", "Lunch"),
+                    ("Dinner", "Dinner"),
+                    ("Afternoon snack", "Snack"),
+                    ("Post-workout meal", "Post Workout"),
+                    ("Supper", "Supper"),
+                ],
+                max_length=50,
+            ),
         ),
         migrations.AlterField(
-            model_name='recipeitem',
-            name='piece',
+            model_name="recipeitem",
+            name="piece",
             field=models.DecimalField(decimal_places=2, max_digits=4, max_length=150),
         ),
     ]

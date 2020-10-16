@@ -1,7 +1,6 @@
 import pytest
 
-from apps.users.forms import (ProfileUpdateForm, UserRegisterForm,
-                              UserUpdateForm)
+from apps.users.forms import ProfileUpdateForm, UserRegisterForm, UserUpdateForm
 
 
 @pytest.mark.django_db

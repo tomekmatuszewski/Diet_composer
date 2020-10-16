@@ -15,9 +15,14 @@ class TestMeal:
             )
             product_category = ProductCategory.objects.create(name="Test Category")
             product = Product.objects.create(
-                category=product_category, name="Test Product", calories_per_100=100,
-                proteins_per_100=50, fats_per_100=50, carbohydrates_per_100=50,
-                weight_of_pcs=100, author=user
+                category=product_category,
+                name="Test Product",
+                calories_per_100=100,
+                proteins_per_100=50,
+                fats_per_100=50,
+                carbohydrates_per_100=50,
+                weight_of_pcs=100,
+                author=user,
             )
             category = Category.objects.create(name="cat1")
             recipe = Recipe.objects.create(
@@ -30,10 +35,14 @@ class TestMeal:
                 total_calories=100,
                 total_proteins=50,
                 total_fats=50,
-                total_carbohydrates=50
+                total_carbohydrates=50,
+                tags="tag",
             )
             meal = Meal.objects.create(name="Test Meal")
-            meal.ingredients.create(product=product, category=product_category, unit="g", weight=100)
+            meal.save()
+            meal.ingredients.create(
+                product=product, category=product_category, unit="g", weight=100
+            )
             meal.recipes.create(recipe=recipe, recipe_category=category, piece=1)
 
         yield meal

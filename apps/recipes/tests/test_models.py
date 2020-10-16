@@ -24,7 +24,7 @@ class TestRecipe:
                 total_calories=100,
                 total_proteins=50,
                 total_fats=50,
-                total_carbohydrates=50
+                total_carbohydrates=50,
             )
         yield recipe
         with django_db_blocker.unblock():

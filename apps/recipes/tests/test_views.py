@@ -38,7 +38,7 @@ class TestRecipeView:
                 total_calories=100,
                 total_proteins=100,
                 total_fats=50,
-                total_carbohydrates=50
+                total_carbohydrates=50,
             )
         yield recipe
         with django_db_blocker.unblock():
@@ -71,7 +71,7 @@ class TestRecipeView:
                 "total_proteins": 100,
                 "total_fats": 50,
                 "total_carbohydrates": 50,
-                "tags": "tag"
+                "tags": "tag",
             },
         )
         assert response.status_code == 302
@@ -157,7 +157,7 @@ class TestLikeView:
                 total_calories=100,
                 total_proteins=100,
                 total_fats=50,
-                total_carbohydrates=50
+                total_carbohydrates=50,
             )
             recipe.save()
         yield recipe
