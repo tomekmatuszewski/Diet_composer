@@ -12,7 +12,7 @@ You can:
 
 Project created in Django
 
-All tested in Pytest
+All tested in Pytest 
 
     to check - . pytest
     
@@ -22,6 +22,18 @@ Front-End part created in Bootstrap with JavaScript
 
 In progress!!
 
-Some views:
+Current state on Develop:
+
+Some screens:
 
  
+![Screen1](readme_media/screen1.png)
+
+
+![Screen1](readme_media/screen2.png)
+
+
+![Screen1](readme_media/screen3.png)
+
+
+![Screen1](readme_media/screen4.png)
