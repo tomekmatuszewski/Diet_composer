@@ -82,7 +82,7 @@ class ProductItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
             product = form.cleaned_data["product"]
             weight = form.cleaned_data["weight"]
             unit = form.cleaned_data["unit"]
-            ingredient = ProductItem(
+            ingredient = ProductItem.objects.create(
                 category=category, product=product, weight=weight, unit=unit
             )
             if check_nutritional_status(self.request.user, menu, ingredient):
@@ -228,6 +228,20 @@ class MealCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             reverse_lazy("menu-details", args=[self.kwargs["pk"]])
         )
 
+
+class MealDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+
+    model = Meal
+    template_name = "diet_composer/meal_confirm_delete.html"
+
+    def get_success_url(self):
+        return reverse_lazy("menu-details", kwargs={"pk": self.kwargs["menu_id"]})
+
+    def test_func(self):
+        menu = DailyMenu.objects.get(id=self.kwargs["menu_id"])
+        if self.request.user == menu.author:
+            return True
+        return False
 
 class RecipeItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 

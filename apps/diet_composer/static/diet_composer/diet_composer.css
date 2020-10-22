@@ -1,6 +1,6 @@
 #menu .meal-title h5
 {
-    display: inline;
+    display: block;
     float: left;
     font-size: 19px;
     margin-left: 1px;
@@ -74,6 +74,15 @@
 }
 
 /*button add recipe and ingredient*/
+
+#menu #remove-meal
+{
+    display: block;
+    float: left;
+    margin-left: 10px;
+    margin-top: 13px;
+}
+
 #add-recipe
 {
     border: none;

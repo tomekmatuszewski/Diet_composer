@@ -60,7 +60,7 @@ class ProductItem(models.Model):
     weight = models.DecimalField(
         max_digits=6,
         decimal_places=2,
-        help_text="Depends on " "selected unit - grams or piece/package",
+        help_text="Depends on selected unit - grams or piece/package",
     )
 
     def __str__(self):

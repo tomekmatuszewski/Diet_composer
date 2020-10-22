@@ -5,7 +5,7 @@ from django.urls import reverse, resolve
 from apps.diet_composer.views import UserMenuListView, ProductCreateView, ProductListView, ProductUpdateView, \
     ProductDeleteView, MenuCreateView, MenuDetailView, MenuUpdateView, MenuDeleteView, ProductItemUpdateView, \
     ProductItemCreateView, ProductItemDeleteView, load_products, load_recipes, MealCreateView, RecipeItemCreateView, \
-    RecipeItemUpdateView, RecipeItemDeleteView
+    RecipeItemUpdateView, RecipeItemDeleteView, MealDeleteView
 
 
 @pytest.fixture(scope="function", name="user")
@@ -110,6 +110,10 @@ def test_create_meal_url(meal):
     url = reverse("meal-create", kwargs={"pk": meal.id})
     assert resolve(url).func.view_class == MealCreateView
 
+
+def test_delete_meal_url(meal, menu):
+    url = reverse("meal-delete", kwargs={"menu_id": menu.id, "pk": meal.id})
+    assert resolve(url).func.view_class == MealDeleteView
 
 def test_create_recipe_item(menu, meal):
     url = reverse("recipeitem-create", kwargs={"menu_id": menu.id, "meal_id": meal.id})

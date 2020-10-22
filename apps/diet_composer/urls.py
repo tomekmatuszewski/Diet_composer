@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import (
     MealCreateView,
+    MealDeleteView,
     MenuCreateView,
     MenuDeleteView,
     MenuDetailView,
@@ -60,6 +61,7 @@ urlpatterns = [
     ),
     path("ajax/load-products/", load_products, name="ajax-load-products"),
     path("menu/<int:pk>/create-meal/", MealCreateView.as_view(), name="meal-create"),
+    path("menu/<slug:menu_id>/meal/<int:pk>/delete", MealDeleteView.as_view(), name="meal-delete"),
     path(
         "menu/<int:menu_id>/meal/<int:meal_id>/add-recipe",
         RecipeItemCreateView.as_view(),

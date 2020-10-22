@@ -6,6 +6,7 @@
             {% for meal in object.meals.all %}
                 <div class="meal-title">
                     <h5>{{ meal.name }}</h5>
+                    <a id="remove-meal" href="{% url 'meal-delete' object.id meal.id %}"><i class="fas fa-trash-alt"></i></a>
                     <a id="add-recipe" class="btn btn-light" title="Add recipe" href="{% url 'recipeitem-create' object.id meal.id %}">
                         <i class="fas fa-plus-circle"><span class="ml-2">Add recipe</span></i>
                     </a>

@@ -12,7 +12,7 @@ class Meal(models.Model):
         post_workout = "Post-workout meal"
         supper = "Supper"
 
-    name = models.CharField(choices=Name.choices, max_length=50)
+    name = models.CharField(choices=Name.choices, max_length=50, unique=True)
     ingredients = models.ManyToManyField(
         "diet_composer.ProductItem", related_name="meals"
     )
@@ -20,6 +20,13 @@ class Meal(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+    def delete(self, using=None, keep_parents=False):
+        for ingredient in self.ingredients.all():
+            ingredient.delete()
+        for recipe in self.recipes.all():
+            recipe.delete()
+        super().delete()
 
     @property
     def total_calories(self) -> float:
