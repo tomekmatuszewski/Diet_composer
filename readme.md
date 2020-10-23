@@ -12,6 +12,17 @@ You can:
 
 Project created in Django
 
+Check actually status:
+    - git clone --single-branch --branch develop <repo>
+    - virtualenv venv
+    - source venv/bin/activate
+    - pip install -r requirements.txt
+    - python3 manage.py migrate
+    - python3 manage.py runserver
+    - http://127.0.0.1:8000/
+    - register and login
+    
+
 All tested in Pytest 
 
     to check - . pytest
