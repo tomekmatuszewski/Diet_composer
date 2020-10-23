@@ -13,6 +13,7 @@ You can:
 Project created in Django
 
 Check actually status:
+
     - git clone --single-branch --branch develop <repo>
     - virtualenv venv
     - source venv/bin/activate
