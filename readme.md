@@ -26,7 +26,7 @@ Check actually status:
 
 All tested in Pytest 
 
-    to check - . pytest
+    to check - pytest .
     
 Front-End part created in Bootstrap with JavaScript
 
