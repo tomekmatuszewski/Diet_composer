@@ -23,6 +23,9 @@ Check actually status:
     - http://127.0.0.1:8000/
     - register and login
     
+    or
+    
+    http://tomekmatuszewski.pythonanywhere.com/
 
 All tested in Pytest 
 
