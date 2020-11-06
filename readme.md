@@ -31,11 +31,6 @@ All tested in Pytest
     
 Front-End part created in Bootstrap with JavaScript
 
-## STATUS
-
-In progress!!
-
-Current state on Develop:
 
 Some screens:
 
