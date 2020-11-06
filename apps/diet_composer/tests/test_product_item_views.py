@@ -96,7 +96,7 @@ class TestProductItemView:
         assert ProductItem.objects.first().weight == 100
         assert ProductItem.objects.first().unit == "g"
 
-    def test_create_delete_product_item(self, client, product, user, menu, meal):
+    def test_delete_product_item(self, client, product, user, menu, meal):
         client.login(username="test_user", password="test12345")
         response = client.post(reverse("ingredient-create", kwargs={"menu_id": menu.id, "meal_id": meal.id}),
                                data={
@@ -112,5 +112,3 @@ class TestProductItemView:
         response = client.post(reverse("ingredient-delete", kwargs={"menu_id": menu.id, "pk": id_}))
         assert response.status_code == 302
         assert ProductItem.objects.count() == 0
-
-

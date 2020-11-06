@@ -14,7 +14,7 @@ Project created in Django
 
 Check actually status:
 
-    - git clone --single-branch --branch develop <repo>
+    - git clone <repo> .
     - virtualenv venv
     - source venv/bin/activate
     - pip install -r requirements.txt

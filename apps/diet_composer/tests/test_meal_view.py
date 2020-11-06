@@ -5,7 +5,7 @@ from django.urls import reverse
 from apps.diet_composer.models import Meal, DailyMenu
 
 @pytest.mark.django_db
-class TestProductView:
+class TestMealView:
     @pytest.fixture(name="user", scope="class")
     def create_user(self, django_db_blocker, django_db_setup):
         with django_db_blocker.unblock():

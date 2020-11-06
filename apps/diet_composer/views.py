@@ -243,6 +243,7 @@ class MealDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
             return True
         return False
 
+
 class RecipeItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     model = RecipeItem
