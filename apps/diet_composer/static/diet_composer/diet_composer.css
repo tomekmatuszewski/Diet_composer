@@ -1,0 +1,200 @@
+#menu .meal-title h5
+{
+    display: block;
+    float: left;
+    font-size: 19px;
+    margin-left: 1px;
+}
+
+#menu .meal-title a
+{
+    display: inline;
+    float: right;
+    margin-right: 0;
+}
+
+#menu .meal-title a:hover
+{
+    color: #D83F46 !important;
+}
+
+#menu .menu-title
+{
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    color: #4D4545;
+}
+
+#menu .meal-summary
+{
+    margin-top: 40px;
+    margin-bottom: 20px;
+    margin-left: 0;
+}
+
+/*stylin meal detail table*/
+
+#menu .meal-table
+{
+    margin-bottom: 50px;
+    margin-top: 60px;
+}
+
+#menu .table .index-table
+{
+    color: #4D4545;
+    width: 25%;
+}
+
+#menu .table th
+{
+   color: #4D4545;
+}
+
+#menu .table .col-header
+{
+    text-align: center;
+}
+
+#menu .table td, table .summary
+{
+    text-align: center;
+}
+
+#menu table .summary, table .summary
+{
+    font-weight: bold;
+}
+
+#division
+{
+    height: 20px;
+}
+
+/*button add recipe and ingredient*/
+
+#menu #remove-meal
+{
+    display: block;
+    float: left;
+    margin-left: 10px;
+    margin-top: 13px;
+}
+
+#add-recipe
+{
+    border: none;
+    float: left;
+    margin-right: 5px;
+    display: block;
+}
+
+#add-ing
+{
+    border: none;
+}
+
+/*button to edit / delete ingredient/ recipe*/
+
+#edit-ing, #edit-recipe
+{
+    border: none;
+    float: left;
+    margin-right: 5px;
+    display: block;
+}
+
+#menu button, #user-products button
+{
+    border: none !important;
+    margin-left: 0;
+    display: block;
+}
+
+#menu button:hover, #edit-ing:hover
+{
+    background-color: #d2caca !important;
+}
+
+/*/main buttons/*/
+
+#menu .buttons a, #menu a, .btn.btn-outline-info
+{
+    color: #4D4545 !important;
+    border-color: #4D4545 !important;
+}
+
+#menu .buttons a:hover, #menu a:hover, .btn.btn-outline-info:hover
+{
+    background-color: #A59E9D !important;
+}
+
+/*creted menus header*/
+
+.menus-list-title
+{
+    color: #4D4545;
+    margin-left: 10px;
+}
+
+/*button details/delete update menu*/
+.buttons-group
+{
+    margin-top: 40px;
+}
+
+/*menu summary at the bottom*/
+
+.menu-summary table
+{
+    margin-top: 10px;
+    color: #4D4545;
+}
+
+/*user personal params part*/
+
+.personal-parameters .personal-parameters-title
+{
+    margin-bottom: 20px;
+}
+
+.personal-parameters
+{
+    margin-top: 40px;
+}
+
+.personal-parameters th
+{
+    color: #4D4545;
+}
+
+/*products created by user - list*/
+
+#user-products table
+{
+    margin-top: 20px;
+    color: #4D4545;
+    text-align: center;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+
+.user-products-list-title
+{
+    color: #4D4545;
+    margin-top: 20px;
+}
+
+#user-products a:hover
+{
+    background-color: #d2caca !important;
+}
+
+
+
+
+
+

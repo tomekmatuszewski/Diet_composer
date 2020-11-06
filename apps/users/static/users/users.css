@@ -1,0 +1,51 @@
+.content-section .media img
+{
+    height: 20%;
+    width: 20%;
+}
+
+.content-section form .btn
+{
+    color: #4D4545 !important;
+    border-color: #4D4545 !important;
+}
+
+.content-section form .btn:hover
+{
+    background-color: #A59E9D !important;
+}
+
+h3
+{
+    color: #4D4545;
+    margin-top: 15px;
+}
+
+#params
+{
+    display: none;
+}
+
+#params h5
+{
+    display: inline-block;
+    margin-left: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#calculator
+{
+    color: #4D4545 !important;
+    border-color: #4D4545 !important;
+}
+
+#calculator:hover
+{
+    background-color: #A59E9D !important;
+}
+
+#params .personal-parameters
+{
+    margin-top: 0;
+}

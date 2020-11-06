@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+    <article id="menu" class="media content-section">
+        <div class="media-body">
+            <h4 class="menu-title">{{ object.name }}</h4>
+            {% for meal in object.meals.all %}
+                <div class="meal-title">
+                    <h5>{{ meal.name }}</h5>
+                    <a id="remove-meal" href="{% url 'meal-delete' object.id meal.id %}"><i class="fas fa-trash-alt"></i></a>
+                    <a id="add-recipe" class="btn btn-light" title="Add recipe" href="{% url 'recipeitem-create' object.id meal.id %}">
+                        <i class="fas fa-plus-circle"><span class="ml-2">Add recipe</span></i>
+                    </a>
+                    <a id="add-ing" class="btn btn-light" title="Add ingredient"
+                       href="{% url 'ingredient-create' object.id meal.id %}">
+                        <i class="fas fa-plus-circle"><span class="ml-2">Add ingredient</span></i>
+                    </a>
+                </div>
+                <div class="meal-table">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th class="index-table" scope="col">Ingrendient name</th>
+                                <th scope="col">Weight [g]</th>
+                                <th scope="col">Calories [kcal]</th>
+                                <th scope="col">Proteins [g]</th>
+                                <th scope="col">Fats [g]</th>
+                                <th scope="col">Carbo [g]</th>
+                                <th scope="col">Edit / Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ingredient in meal.ingredients.all %}
+                                <tr>
+                                    <th scope="row" class="index-table">{{ ingredient.product.name }}</th>
+                                    <td>{{ ingredient.weight_of_pcs }}</td>
+                                    <td>{{ ingredient.calories }}</td>
+                                    <td>{{ ingredient.proteins }}</td>
+                                    <td>{{ ingredient.fats }}</td>
+                                    <td>{{ ingredient.carbohydrates }}</td>
+                                    <td>
+                                        <a id="edit-ing" href="{% url 'ingredient-edit' object.pk ingredient.pk %}"
+                                           class="btn btn-light btn-sm"><i class="fas fa-pen"></i></a>
+                                        <form method="POST" action="{% url 'ingredient-delete' object.pk ingredient.pk %}">
+                                            {% csrf_token %}
+                                            <button class="btn btn-light btn-sm" type="submit" value="DELETE">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            {% if meal.recipes.all %}
+                                <tr id="division" class="table-active">
+                                    <td colspan="7"></td>
+                                </tr>
+                                <tr>
+                                    <th class="index-table" scope="col">Recipe name</th>
+                                    <th scope="col">Piece</th>
+                                    <th scope="col">Calories [kcal]</th>
+                                    <th scope="col">Proteins [g]</th>
+                                    <th scope="col">Fats [g]</th>
+                                    <th scope="col">Carbo [g]</th>
+                                    <th scope="col">Edit / Delete</th>
+                                </tr>
+                            {% endif %}
+                            {% for recipe in meal.recipes.all %}
+                                <tr>
+                                    <th scope="row" class="index-table">{{ recipe.recipe.title }}</th>
+                                    <td>{{ recipe.piece }} </td>
+                                    <td>{{ recipe.calories }}</td>
+                                    <td>{{ recipe.proteins }}</td>
+                                    <td>{{ recipe.fats }}</td>
+                                    <td>{{ recipe.carbohydrates }}</td>
+                                    <td>
+                                        <a id="edit-recipe" href="{% url 'recipeitem-edit' object.pk recipe.pk %}"
+                                           class="btn btn-light btn-sm"><i class="fas fa-pen"></i></a>
+                                        <form method="POST" action="{% url 'recipeitem-delete' object.pk recipe.pk %}">
+                                            {% csrf_token %}
+                                            <button class="btn btn-light btn-sm" type="submit" value="DELETE">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <thead>
+                            <tr class="table-active">
+                                <th class="index-table" scope="col">Total for meal</th>
+                                <td class="summary"></td>
+                                <td class="summary">{{ meal.total_calories }}</td>
+                                <td class="summary">{{ meal.total_proteins }}</td>
+                                <td class="summary">{{ meal.total_fats }}</td>
+                                <td class="summary">{{ meal.total_carbohydrates }}</td>
+                                <td class="summary"></td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            {% endfor %}
+
+
+            <div class="buttons">
+                <a class="btn btn-outline-info mt-1 mb-1 mr-3" href="{% url 'meal-create' object.id %}">Add Meal</a>
+            </div>
+
+
+        </div>
+    </article>
+
+    <div class="menu-summary">
+        <div class="media-body">
+            <article class="media content-section">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr class="table-active">
+                            <th class="index-table" scope="col">Total for menu</th>
+                            <td class="summary">Total calories [kcal]</td>
+                            <td class="summary">Total proteins [g]</td>
+                            <td class="summary">Total fats [g]</td>
+                            <td class="summary">Total carbohydrates [g]</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <th class="index-table" scope="col"></th>
+                        <td class="summary">{{ object.total_calories }}</td>
+                        <td class="summary">{{ object.total_proteins }}</td>
+                        <td class="summary">{{ object.total_fats }}</td>
+                        <td class="summary">{{ object.total_carbohydrates }}</td>
+                    </tbody>
+                </table>
+            </article>
+        </div>
+    </div>
+
+{% endblock content %}

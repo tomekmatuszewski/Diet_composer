@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="content-section">
+        <div class="media">
+            <img class="rounded-circle account-img mb-3" src="{{ user.profile.image.url }}">
+            <div class="media-body">
+                <h4 class="account-heading ml-4">username: {{ user.username }}</h4>
+                <p class="text-secondary ml-4">email: {{ user.email }}</p>
+            </div>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Info</legend>
+                {{ user_form|crispy }}
+                {{ profile_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+
+    <button id="calculator" class="btn btn-outline-info" onclick="display_params();">Calculate your parameters</button>
+
+    <div id="params" class="content-section">
+         <div class="personal-parameters">
+             <h5>Calculated user parameters:</h5>
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th scope="row">Basal metabolic rate (BMR)</th>
+                        <td>{{ user.profile.bmr }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Daily caloric demand (CMR)</th>
+                        <td>{{ user.profile.cmr }} kcal</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Daily proteins demand</th>
+                        <td>{{ user.profile.daily_proteins }} g</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Daily fats demand</th>
+                        <td>{{ user.profile.daily_fats }} g</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Daily carbohydrates demand</th>
+                        <td>{{ user.profile.daily_carb }} g</td>
+                    </tr>
+                </thead>
+                </table>
+         </div>
+    </div>
+
+{% endblock content %}

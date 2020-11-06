@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ user.profile.image.url }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <span class="article-author mr-2"><a  href="#">{{ user.username }}</a></span>
+            </div>
+            <div class="personal-parameters">
+                <h5 class="personal-parameters-title">Your personal parameters</h5>
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="row">Daily caloric demand (CMR)</th>
+                            <td>{{ user.profile.cmr }} kcal</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Daily proteins demand</th>
+                            <td>{{ user.profile.daily_proteins }} g</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Daily fats demand</th>
+                            <td>{{ user.profile.daily_fats }} g</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Daily carbohydrates demand</th>
+                            <td>{{ user.profile.daily_carb }} g</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+    </div>
+
+    </article>
+
+    {% if not user.user_menus.count %}
+        <p>You have not created any menus</p>
+        <a class="btn btn-outline-info" href="{% url 'create-menu' %}">Add menu</a>
+    {% else %}
+        <h5 class="menus-list-title">Created menus</h5>
+        {% for menu in menus %}
+            <article id="menu" class="media content-section">
+                <div class="media-body">
+                    <h5 class="article-title">{{ menu.name }}</h5>
+                    <p>Max number of meals : {{ menu.number_of_meals }}</p>
+
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th class="index-table" scope="col">Meal name</th>
+                                <th class="col-header" scope="col">Calories [kcal]</th>
+                                <th class="col-header" scope="col">Proteins [g]</th>
+                                <th class="col-header" scope="col">Fats [g]</th>
+                                <th class="col-header" scope="col">Carbo [g]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for meal in menu.meals.all %}
+                                <tr>
+                                    <th scope="row" class="index-table">{{ meal.name }}</th>
+                                    <td>{{ meal.total_calories }}</td>
+                                    <td>{{ meal.total_proteins }}</td>
+                                    <td>{{ meal.total_fats }}</td>
+                                    <td>{{ meal.total_carbohydrates }}</td>
+                            {% endfor %}
+                                </tr>
+                        </tbody>
+                         <thead>
+                            <tr class="table-active">
+                                <th class="index-table" scope="col">Total for menu</th>
+                                <td class="summary">{{ menu.total_calories }}</td>
+                                <td class="summary">{{ menu.total_proteins }}</td>
+                                <td class="summary">{{ menu.total_fats }}</td>
+                                <td class="summary">{{ menu.total_carbohydrates }}</td>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <div class="buttons-group">
+                        <a class="btn btn-outline-info btn-sm" href="{% url 'menu-details' menu.id %}">Details</a>
+                        <a class="btn btn-outline-info btn-sm ml-2" href="{% url 'menu-delete' user.username menu.id %}">Delete</a>
+                        <a class="btn btn-outline-info btn-sm ml-2" href="{% url 'menu-update' user.username menu.id %}">Update</a>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+        <a class="btn btn-outline-info" href="{% url 'create-menu' %}">Add Menu</a>
+    {% endif %}
+
+
+    <div class="buttons-paginate">
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+
+    {% endif %}
+    </div>
+{% endblock content %}

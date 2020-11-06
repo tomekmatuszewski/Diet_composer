@@ -1,0 +1,250 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+         <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'diet_blog/blog_static.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'users/users.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'recipes/recipes_static.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'diet_composer/diet_composer.css' %}">
+        <script src="https://kit.fontawesome.com/0a451c7507.js" crossorigin="anonymous"></script>
+
+        {% if title %}
+            <title>Diet composer - {{ title }}</title>
+        {% else %}
+            <title>Diet composer</title>
+        {% endif %}
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="title" ><h1><a href="{% url 'diet_composer-home' %}">Diet Composer</a></h1></div>
+
+            <nav class="navbar navbar-dark bg-composer navbar-expand-lg">
+
+                <a class="navbar-brand" href="{% url 'diet_composer-home' %}"><i class="fas fa-utensils"></i></a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu"
+                        aria-controls="mainmenu" aria-expanded="false" aria-label="nav-switcher">
+				    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainmenu">
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'diet_composer-home' %}"> Main Page </a>
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <div class="btn-group">
+                                    <a class="nav-link" type="button" href="{% url 'user-menus' user.username %}">Composer</a>
+                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{% url 'product-create' %}">New Product</a>
+                                        <a class="dropdown-item" href="{% url 'products-list' user.username %}">Your Products</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="btn-group">
+                                    <a class="nav-link" type="button" href="{% url 'diet_composer-blog' %}">Blog</a>
+                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{% url 'post-create' %}">New Post</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="btn-group">
+                                    <a class="nav-link" type="button" href="{% url 'diet_composer-recipes' %}">Recipes</a>
+                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{% url 'recipe-create' %}">New Recipe</a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"> Composer </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'diet_composer-blog' %}"> Blog </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'diet_composer-recipes' %}"> Recipes </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'diet_composer-about' %}"> About </a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Search form -->
+                        <form class="form-inline" id="searchForm">
+                            <input id="searchItem" class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search">
+                            <a id="gotoText" class="search" type="button" onclick="highlightSearch();">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </a>
+                        </form>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item mt-1">
+                                <a class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user-circle"></i></a>
+                            </li>
+                            <li class="nav-item mt-1">
+                                <a class="nav-link" href="{% url 'logout' %}"> Logout </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}"> Register </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}"> Login </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </nav>
+        </header>
+
+        <main role="main" class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-9">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% block content %} {% endblock %}
+                </div>
+                <div class="sidebar col-md-3">
+                    <div class="content-section">
+                        <div class="well">
+                            <p class='text-muted'>Latest, most popular, fittest :)
+                              <ul class="list-group">
+                                <li id="current-date" class="list-group-item list-group-item-light">Current date</li>
+                                <li class="list-group-item list-group-item-light">
+                                    <p>Latest post:</p>
+                                    {% if all_posts %}
+                                        <a href="{% url 'post-detail' all_posts.last.id %}">
+                                            <p>{{ all_posts.last.title }}</p>
+                                        </a>
+                                        <small>Author: </small>
+                                        <p>{{ all_posts.last.author }}</p>
+                                    {% endif %}
+                                </li>
+                                <li class="list-group-item list-group-item-light">
+                                    <p>Latest recipe:</p>
+                                    {% if all_recipes %}
+                                        <a href="{% url 'recipe-detail' all_recipes.last.id %}">
+                                            <p>{{ all_recipes.last.title }}</p>
+                                        </a>
+                                        <small>Author: </small>
+                                        <p>{{ all_recipes.last.author }}</p>
+                                    {% endif %}
+                                </li>
+                                <li class="list-group-item list-group-item-light">
+                                    <p>Tags: </p>
+                                    {% if common_tags %}
+                                        {% for tag in common_tags %}
+                                            <a class="btn btn-light" type="button" href="#">
+                                                <span>#{{ tag }}</span>
+                                            </a>
+                                        {% endfor %}
+                                    {% endif %}
+                                </li>
+                                <li class="list-group-item list-group-item-light">
+                                    <p>Photos:</p>
+                                    {% if all_recipes %}
+                                        {% for recipe in all_recipes %}
+                                            <a href="{% url 'recipe-detail' recipe.id %}">
+                                                <img class="img-thumbnail mt-4" src="{{ recipe.image.url }}"/>
+                                            </a>
+                                        {% endfor %}
+                                    {% endif %}
+                                </li>
+                              </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- Back to top button -->
+        <button id="button"></button>
+
+     <!-- Footer -->
+      <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <ul class="list-inline text-center">
+                <li class="list-inline-item">
+                  <a href="#">
+                    <span class="fa-stack fa-lg">
+                      <i class="fas fa-circle fa-stack-2x"></i>
+                      <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#">
+                    <span class="fa-stack fa-lg">
+                      <i class="fas fa-circle fa-stack-2x"></i>
+                      <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#">
+                    <span class="fa-stack fa-lg">
+                      <i class="fas fa-circle fa-stack-2x"></i>
+                      <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+              <p class="copyright text-muted">Copyright &copy; Diet Composer WordPress 2020</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="{% static 'top_nav.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scroll_top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'current_date.js' %}"></script>
+    <script type="text/javascript" src="{% static 'search_and_highlight.js' %}"></script>
+    <script type="text/javascript" src="{% static 'users/users.js' %}"></script>
+    <script type="text/javascript" src="{% static 'diet_composer/diet_composer.js' %}"></script>
+
+    </body>
+
+</html>

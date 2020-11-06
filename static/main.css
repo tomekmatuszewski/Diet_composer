@@ -1,0 +1,131 @@
+body
+{
+    background: #FFFFFF;
+    font-family: 'Merriweather', serif;
+}
+
+/* highlight style */
+body p span
+{
+    background-color: #f5ea07;
+}
+
+/* header style */
+header .title
+{
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+header .title h1
+{
+    text-align: center;
+}
+
+header .title h1 a
+{
+    color: #D83F46;
+    text-decoration: none;
+}
+
+header .bg-composer
+{
+	background-color: #4D4545;
+}
+
+header .bg-composer a:hover
+{
+	color: #D83F46 !important;
+}
+
+header .sticky
+{
+	width: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 100;
+}
+
+header nav #mainmenu .btn
+{
+    background-color: #4D4545 !important;
+    border: none;
+    margin-top: 2px;
+}
+
+nav .search
+{
+    color: white !important;
+}
+
+
+/* footer style */
+
+footer {
+  padding: 50px 0 65px;
+}
+
+footer .list-inline {
+  margin: 0;
+  padding: 0;
+}
+
+footer .copyright {
+  font-size: 14px;
+  margin-bottom: 0;
+  margin-top: 20px;
+  text-align: center;
+}
+
+footer a .fa-circle
+{
+    color: #4D4545;
+}
+
+/* back up button */
+#button {
+  display: inline-block;
+  background-color: #4D4545;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s,
+  opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  border: none;
+}
+
+#button::after {
+  content: "\f077";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 50px;
+  color: #fff;
+}
+
+#button:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+
+#button:active {
+  background-color: #555;
+}
+
+#button.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* sidebar */
+

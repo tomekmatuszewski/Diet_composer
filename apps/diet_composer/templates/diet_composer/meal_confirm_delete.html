@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Delete Menu</legend>
+                <h4>Are you sure you want to delete your meal "{{ object.name }}"</h4>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">Delete</button>
+                <a class="btn btn-outline-secondary" href="{% url 'menu-details' request.resolver_match.kwargs.menu_id %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}
