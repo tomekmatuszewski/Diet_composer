@@ -108,25 +108,25 @@
 .comments-section .btn
 {
 
-   color: #4D4545 !important;
-   border-color: #4D4545 !important;
+   color: #4D4545;
+   border-color: #4D4545;
 }
 
 .comments-section .btn:hover
 {
-   background-color: #A59E9D !important;
+   background-color: #A59E9D;
 }
 
 
 .comments-section .btn-sm
 {
-   color: #4D4545 !important;
-   border-color: #4D4545 !important;
+   color: #4D4545;
+   border-color: #4D4545;
    text-decoration:  none;
    margin-left: -5px;
 }
 
 .comments-section .btn-sm:hover
 {
-   background-color: #A59E9D !important;
+   background-color: #A59E9D;
 }

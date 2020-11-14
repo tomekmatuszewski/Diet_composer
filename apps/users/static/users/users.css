@@ -6,13 +6,13 @@
 
 .content-section form .btn
 {
-    color: #4D4545 !important;
-    border-color: #4D4545 !important;
+    color: #4D4545;
+    border-color: #4D4545;
 }
 
 .content-section form .btn:hover
 {
-    background-color: #A59E9D !important;
+    background-color: #A59E9D;
 }
 
 h3
@@ -36,13 +36,13 @@ h3
 
 #calculator
 {
-    color: #4D4545 !important;
-    border-color: #4D4545 !important;
+    color: #4D4545;
+    border-color: #4D4545;
 }
 
 #calculator:hover
 {
-    background-color: #A59E9D !important;
+    background-color: #A59E9D;
 }
 
 #params .personal-parameters

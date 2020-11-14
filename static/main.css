@@ -33,9 +33,15 @@ header .bg-composer
 	background-color: #4D4545;
 }
 
-header .bg-composer a:hover
+#mainmenu .navbar-nav .btn
 {
-	color: #D83F46 !important;
+    background-color: #4D4545;
+    border: none;
+}
+
+#mainmenu .navbar-nav .nav-link:hover
+{
+	color: #D83F46;
 }
 
 header .sticky
@@ -47,16 +53,16 @@ header .sticky
 	z-index: 100;
 }
 
-header nav #mainmenu .btn
+#mainmenu #searchItem
 {
-    background-color: #4D4545 !important;
+    background-color: white;
     border: none;
     margin-top: 2px;
 }
 
-nav .search
+#mainmenu .navbar-nav .search
 {
-    color: white !important;
+    color: white;
 }
 
 

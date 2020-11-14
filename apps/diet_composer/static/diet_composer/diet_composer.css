@@ -15,7 +15,7 @@
 
 #menu .meal-title a:hover
 {
-    color: #D83F46 !important;
+    color: #D83F46;
 }
 
 #menu .menu-title
@@ -108,27 +108,27 @@
 
 #menu button, #user-products button
 {
-    border: none !important;
+    border: none;
     margin-left: 0;
     display: block;
 }
 
 #menu button:hover, #edit-ing:hover
 {
-    background-color: #d2caca !important;
+    background-color: #d2caca;
 }
 
 /*/main buttons/*/
 
 #menu .buttons a, #menu a, .btn.btn-outline-info
 {
-    color: #4D4545 !important;
-    border-color: #4D4545 !important;
+    color: #4D4545;
+    border-color: #4D4545;
 }
 
 #menu .buttons a:hover, #menu a:hover, .btn.btn-outline-info:hover
 {
-    background-color: #A59E9D !important;
+    background-color: #A59E9D;
 }
 
 /*creted menus header*/
@@ -190,7 +190,7 @@
 
 #user-products a:hover
 {
-    background-color: #d2caca !important;
+    background-color: #d2caca;
 }
 
 
