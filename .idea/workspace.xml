@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf07601-1316-48da-b259-03b19c1f99c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +74,7 @@
       <workItem from="1608047768380" duration="2774000" />
       <workItem from="1608109619884" duration="7362000" />
       <workItem from="1608130600226" duration="2021000" />
-      <workItem from="1610193300919" duration="732000" />
+      <workItem from="1610193300919" duration="1055000" />
     </task>
     <servers />
   </component>
