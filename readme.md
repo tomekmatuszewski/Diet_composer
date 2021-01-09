@@ -12,6 +12,15 @@ You can:
 
 Project created in Django
 
+    Run with docker:
+    - docker-compose build
+    - docker-compose up
+    - docker exec -it diet_composer_web_1 bash
+        - pyhon manage.py migrate
+        - python manage.py createsuperuser (admin)
+    - http://127.0.0.1:8000
+
+    Run manually:
     - git clone <repo> .
     - virtualenv venv
     - source venv/bin/activate
